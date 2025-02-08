@@ -4,12 +4,15 @@ import java.util.Scanner;
  * A client to manage the user input and output.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
+ * @inv 0 ≤ θ ≤ 90 (first quadrant)
+ * @inv |r| < 10 (distance from the origin)
  */
 public class Client {
     /**
-     * Problem A:<br>
+     * Problem B:<br>
      * Write a client class that creates two {@link Point}s and prints the distance between them.
+     * Now, the Point class has been updated to include an invariant that checks if the points are in the first quadrant.
      *
      * @param args the command-line arguments
      */

@@ -1,8 +1,12 @@
+import static java.lang.System.exit;
+
 /**
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
+ * @inv 0 ≤ θ ≤ 90 (first quadrant)
+ * @inv |r| < 10 (distance from the origin)
  */
 public class Point {
     /**
@@ -19,12 +23,27 @@ public class Point {
      *
      * @param radius the radius of the point
      * @param angle  the angle of the point
+     * @inv 0 ≤ θ ≤ 90 (first quadrant)
+     * @inv |r| < 10 (distance from the origin)
      */
     public Point(double radius, double angle) {
+        checkInvariant(radius, angle);
         this.radius = radius;
         this.angle = angle;
     }
 
+    /**
+     * Checks the invariant of the class.
+     *
+     * @param radius the angle of the point
+     * @param angle  the angle of the point
+     */
+    protected static void checkInvariant(double radius, double angle) {
+        if (Math.abs(radius) > 10 || angle < 0 || angle > 90) {
+            System.out.print("iv");
+            exit(0);
+        }
+    }
 
     /**
      * Gets the angle of the point.
