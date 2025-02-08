@@ -1,5 +1,3 @@
-import static java.lang.System.exit;
-
 /**
  * Point class represents a point in polar coordinates.
  *
