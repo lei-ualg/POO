@@ -4,23 +4,28 @@ import java.util.Scanner;
  * A client to manage the user input and output.
  *
  * @author Leonardo Albudane
- * @version 2.0
- * @inv 0 ≤ θ ≤ 90 (first quadrant)
- * @inv |r| < 10 (distance from the origin)
+ * @version 3.0
+ * @inv Point 0 ≤ θ ≤ 90 (first quadrant)
+ * @inv Point |r| &lt; 10 (distance from the origin)
+ * @inv Path n ≥ 2
  */
 public class Client {
     /**
-     * Problem B:<br>
-     * Write a client class that creates two {@link Point}s and prints the distance between them.
-     * Now, the Point class has been updated to include an invariant that checks if the points are in the first quadrant.
+     * Problem C:<br>
+     * Read <i>n</i> + 1 lines from the standard input. The first line contains the number <i>n</i> of points to read.<br>
+     * The following <i>n</i> lines contain the polar coordinates of the points.<br>
+     * After reading the points, print the path length between the first and the last point.
      *
      * @param args the command-line arguments
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        Point p1 = new Point(scanner.nextDouble(), scanner.nextDouble());
-        Point p2 = new Point(scanner.nextDouble(), scanner.nextDouble());
-        System.out.print((int) p1.distance(p2));
+        int n = scanner.nextInt();
+        Path path = new Path(n);
+        for (int i = 0; i < n; i++) {
+            path.addToPath(i, scanner.nextDouble(), scanner.nextDouble());
+        }
         scanner.close();
+        System.out.printf("%.2f", path.distance());
     }
 }

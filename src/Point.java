@@ -6,7 +6,7 @@ import static java.lang.System.exit;
  * @author Leonardo Albudane
  * @version 2.0
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
- * @inv |r| < 10 (distance from the origin)
+ * @inv |r| &lt; 10 (distance from the origin)
  */
 public class Point {
     /**
@@ -24,7 +24,7 @@ public class Point {
      * @param radius the radius of the point
      * @param angle  the angle of the point
      * @inv 0 ≤ θ ≤ 90 (first quadrant)
-     * @inv |r| < 10 (distance from the origin)
+     * @inv |r| &lt; 10 (distance from the origin)
      */
     public Point(double radius, double angle) {
         checkInvariant(radius, angle);
