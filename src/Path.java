@@ -10,6 +10,9 @@ import static java.lang.System.exit;
  * @inv Path n ≥ 2
  */
 public class Path {
+    /**
+     * The array of points in the path
+     */
     private final Point[] points;
 
     /**
