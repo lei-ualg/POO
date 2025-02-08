@@ -2,16 +2,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import static java.lang.System.exit;
+
 /**
  * A client class that creates points and prints the distance between them.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
  * @inv none
  */
 public class Client {
+    /**
+     * The list of points.
+     */
     private final List<Point> points = new ArrayList<>();
-
 
     /**
      * Constructs a client that reads two points from the user.
@@ -27,9 +31,13 @@ public class Client {
         scanner.close();
     }
 
-    public void problemA() {
+    /**
+     * Prints the distance between two points in the first quadrant.
+     */
+    public void problemB() {
         printDistanceBetweenPoints(this.points);
     }
+
 
     /**
      * Prints the int distance between each pair of points in the given list.
@@ -40,7 +48,8 @@ public class Client {
      */
     public static void printDistanceBetweenPoints(List<Point> points) {
         if (points.size() < 2) {
-            throw new IllegalArgumentException("At least two points are required");
+            System.out.print("iv");
+            exit(0);
         }
         for (int i = 0; i < points.size() - 1; i++) {
             System.out.print((int) points.get(i).distance(points.get(i + 1)));
