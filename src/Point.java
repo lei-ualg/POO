@@ -5,7 +5,6 @@ import static java.lang.System.exit;
  *
  * @author Leonardo Albudane
  * @version 1.0
- * @inv r ≥ 0 and 0 ≤ θ ≤ 90 (first quadrant)
  */
 public class Point {
     /**
@@ -22,16 +21,12 @@ public class Point {
      *
      * @param radius the radius of the point
      * @param angle  the angle of the point
-     * @inv r ≥ 0 and 0 ≤ θ ≤ 90 (first quadrant)
      */
     public Point(double radius, double angle) {
-        if (radius < 0 || angle < 0 || angle > 90) {
-            System.out.print("iv");
-            exit(0);
-        }
         this.radius = radius;
         this.angle = angle;
     }
+
 
     /**
      * Gets the angle of the point.
@@ -59,6 +54,6 @@ public class Point {
      * @return the distance between this point and the other point
      */
     public double distance(Point that) {
-        return Math.sqrt(Math.pow(this.radius, 2) + Math.pow(that.radius, 2) - 2 * this.radius * that.radius * Math.cos(Math.toRadians(this.angle - that.angle)));
+        return Math.sqrt(Math.pow(this.getRadius(), 2) + Math.pow(that.getRadius(), 2) - 2 * this.getRadius() * that.radius * Math.cos(Math.toRadians(this.getAngle() - that.getAngle())));
     }
 }
