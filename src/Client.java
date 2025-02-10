@@ -4,10 +4,10 @@ import java.util.Scanner;
  * A client to manage the user input and output.
  *
  * @author Leonardo Albudane
- * @version 3.0
+ * @version 4.0
  * @inv Point 0 ≤ θ ≤ 90 (first quadrant)
- * @inv Point |r| &lt; 10 (distance from the origin)
- * @inv Path n ≥ 2
+ * @inv Circle r > 0
+ * @inv Circle P in the first quadrant
  */
 public class Client {
     /**
@@ -20,12 +20,9 @@ public class Client {
      */
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
-        int n = scanner.nextInt();
-        Path path = new Path(n);
-        for (int i = 0; i < n; i++) {
-            path.addToPath(i, scanner.nextDouble(), scanner.nextDouble());
-        }
+        Point center = new Point(scanner.nextInt(), scanner.nextInt());
+        Circle circle = new Circle(scanner.nextDouble(), center);
         scanner.close();
-        System.out.printf("%.2f", path.distance());
+        System.out.println((int) circle.perimeter());
     }
 }
