@@ -4,7 +4,7 @@ import static java.lang.System.exit;
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
  * @inv r > 0
  * @inv P in the first quadrant
  */
@@ -47,6 +47,30 @@ public class Circle {
      */
     public double perimeter() {
         return 2 * Math.PI * this.radius;
+    }
+
+
+    /**
+     * Check if the circle intersects with a segment.<br>
+     * The circle intersects with the segment if the distance between the center of the circle and the closest point of the segment is less than the radius of the circle.
+     *
+     * @param segment the segment to check
+     * @return true if the circle intersects with the segment, false otherwise
+     */
+    public boolean intersects(Segment segment) {
+        float ABx = (float) (segment.b.getX() - segment.a.getX());
+        float ABy = (float) (segment.b.getY() - segment.a.getY());
+
+        float APx = (float) (this.center.getX() - segment.a.getX());
+        float APy = (float) (this.center.getY() - segment.a.getY());
+
+        float AB_AB = ABx * ABx + ABy * ABy;
+        float AP_AB = APx * ABx + APy * ABy;
+
+        float t = Math.clamp(AP_AB / AB_AB, 0, 1);
+
+        Point closest = new Point((int) (segment.a.getX() + ABx * t), (int) (segment.a.getY() + ABy * t));
+        return this.center.distance(closest) < this.radius;
     }
 
     /**

@@ -4,7 +4,7 @@ import static java.lang.System.exit;
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 3.0
+ * @version 4.0
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
  */
 public class Point {
@@ -56,6 +56,24 @@ public class Point {
     }
 
     /**
+     * Returns the x-coordinate of the point in the Cartesian plane.
+     *
+     * @return the x-coordinate of the point
+     */
+    public double getX() {
+        return this.radius * Math.cos(Math.toRadians(this.angle));
+    }
+
+    /**
+     * Returns the y-coordinate of the point in the Cartesian plane.
+     *
+     * @return the y-coordinate of the point
+     */
+    public double getY() {
+        return this.radius * Math.sin(Math.toRadians(this.angle));
+    }
+
+    /**
      * Calculates the distance between this point and another point.<br>
      * Formula: √( r<sub>1</sub><sup>2</sup> + r<sub>2</sub><sup>2</sup> - 2 × r<sub>1</sub> × r<sub>2</sub> × cos(θ<sub>1</sub> - θ<sub>2</sub>) )
      *
@@ -64,6 +82,31 @@ public class Point {
      */
     public double distance(Point that) {
         return Math.sqrt(Math.pow(this.radius, 2) + Math.pow(that.radius, 2) - 2 * this.radius * that.radius * Math.cos(Math.toRadians(this.angle - that.angle)));
+    }
+
+
+    /**
+     * Compares this point to the specified object.
+     *
+     * @param obj the object to compare
+     * @return true if the points are equal, false otherwise
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof Point that) {
+            return this.radius == that.radius && this.angle == that.angle;
+        }
+        return false;
+    }
+
+    /**
+     * Returns a hash code value for the point.
+     *
+     * @return a hash code value for the point
+     */
+    @Override
+    public int hashCode() {
+        return Double.hashCode(this.radius) + Double.hashCode(this.angle);
     }
 
     /**
