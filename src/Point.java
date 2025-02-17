@@ -4,18 +4,18 @@ import static java.lang.System.exit;
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 4.0
+ * @version 4.1
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
  */
 public class Point {
     /**
      * The radius of the point.
      */
-    public final double radius;
+    private final double radius;
     /**
      * The angle of the point.
      */
-    public final double angle;
+    private final double angle;
 
     /**
      * Constructs a point with the given polar coordinates.
@@ -53,6 +53,24 @@ public class Point {
             System.out.println("Ponto:vi");
             exit(0);
         }
+    }
+
+    /**
+     * Returns the radius of the point.
+     *
+     * @return the radius of the point
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+    /**
+     * Returns the angle of the point.
+     *
+     * @return the angle of the point
+     */
+    public double getAngle() {
+        return angle;
     }
 
     /**
