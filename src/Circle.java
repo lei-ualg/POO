@@ -4,7 +4,7 @@ import static java.lang.System.exit;
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 2.1
+ * @version 2.2
  * @inv r > 0
  * @inv P in the first quadrant
  */
@@ -31,9 +31,14 @@ public class Circle {
      * @param center the center of the circle
      */
     public static void checkInvariant(double radius, Point center) {
-        float Opp = (float) (center.getRadius() * Math.sin(Math.toRadians(center.getAngle())));
-        float Adj = (float) (center.getRadius() * Math.cos(Math.toRadians(center.getAngle())));
-        if (radius <= 0 || radius > Math.abs(Opp) || radius > Math.abs(Adj)) {
+        double Opp = center.getRadius() * Math.sin(Math.toRadians(center.getAngle()));
+        double Adj = center.getRadius() * Math.cos(Math.toRadians(center.getAngle()));
+
+        boolean invalidRadius = radius <= 0
+                || Math.abs(radius - Math.abs(Opp)) < 1e-9 || radius > Math.abs(Opp)
+                || Math.abs(radius - Math.abs(Adj)) < 1e-9 || radius > Math.abs(Adj);
+
+        if (invalidRadius) {
             System.out.println("Circulo:vi");
             exit(0);
         }
@@ -56,21 +61,25 @@ public class Circle {
      *
      * @param segment the segment to check
      * @return true if the circle intersects with the segment, false otherwise
+     * @see <a href="https://stackoverflow.com/questions/47481774/getting-point-on-line-segment-that-is-closest-to-another-point">Getting point on a line segment that is closest to another point [SO]</a>
      */
     public boolean intersects(Segment segment) {
-        float ABx = (float) (segment.getB().getX() - segment.getA().getX());
-        float ABy = (float) (segment.getB().getY() - segment.getA().getY());
+        double ABx = segment.getB().getX() - segment.getA().getX();
+        double ABy = segment.getB().getY() - segment.getA().getY();
 
-        float APx = (float) (this.center.getX() - segment.getA().getX());
-        float APy = (float) (this.center.getY() - segment.getA().getY());
+        double APx = this.center.getX() - segment.getA().getX();
+        double APy = this.center.getY() - segment.getA().getY();
 
-        float AB_AB = ABx * ABx + ABy * ABy;
-        float AP_AB = APx * ABx + APy * ABy;
+        double AB_AB = ABx * ABx + ABy * ABy;
+        double AP_AB = APx * ABx + APy * ABy;
 
-        float t = Math.clamp(AP_AB / AB_AB, 0, 1);
+        double t = Math.clamp(AP_AB / AB_AB, 0, 1);
 
         Point closest = new Point((int) (segment.getA().getX() + ABx * t), (int) (segment.getA().getY() + ABy * t));
-        return this.center.distance(closest) < this.radius;
+
+        double distanceToClosest = this.center.distance(closest);
+
+        return Math.abs(distanceToClosest - this.radius) < 1e-9 || distanceToClosest < this.radius;
     }
 
     /**
