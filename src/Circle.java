@@ -1,10 +1,8 @@
-import static java.lang.System.exit;
-
 /**
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 2.2
+ * @version 3.0
  * @inv r > 0
  * @inv P in the first quadrant
  */
@@ -33,15 +31,31 @@ public class Circle {
     public static void checkInvariant(double radius, Point center) {
         double Opp = center.getRadius() * Math.sin(Math.toRadians(center.getAngle()));
         double Adj = center.getRadius() * Math.cos(Math.toRadians(center.getAngle()));
-
         boolean invalidRadius = radius <= 0
-                || Math.abs(radius - Math.abs(Opp)) < 1e-9 || radius > Math.abs(Opp)
-                || Math.abs(radius - Math.abs(Adj)) < 1e-9 || radius > Math.abs(Adj);
+                || Utils.gt(radius, Math.abs(Opp))
+                || Utils.gt(radius, Math.abs(Adj));
 
         if (invalidRadius) {
-            System.out.println("Circulo:vi");
-            exit(0);
+            throw new IllegalArgumentException("Circulo:vi");
         }
+    }
+
+    /**
+     * Returns the radius of the circle.
+     *
+     * @return the radius of the circle
+     */
+    public double getRadius() {
+        return radius;
+    }
+
+    /**
+     * Returns the center of the circle.
+     *
+     * @return the center of the circle
+     */
+    public Point getCenter() {
+        return center;
     }
 
     /**
@@ -77,9 +91,7 @@ public class Circle {
 
         Point closest = new Point((int) (segment.getA().getX() + ABx * t), (int) (segment.getA().getY() + ABy * t));
 
-        double distanceToClosest = this.center.distance(closest);
-
-        return Math.abs(distanceToClosest - this.radius) < 1e-9 || distanceToClosest < this.radius;
+        return Utils.ge(this.radius, this.center.distance(closest));
     }
 
     /**

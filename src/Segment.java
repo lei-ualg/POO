@@ -1,5 +1,3 @@
-import static java.lang.System.exit;
-
 /**
  * Segment class represents a segment between two points.
  *
@@ -31,8 +29,7 @@ public class Segment {
      */
     public static void checkInvariant(Point a, Point b) {
         if (a.equals(b)) {
-            System.out.println("Segmento:vi");
-            exit(0);
+            throw new IllegalArgumentException("Segmento:vi");
         }
     }
 

@@ -1,10 +1,8 @@
-import static java.lang.System.exit;
-
 /**
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 4.1
+ * @version 4.2
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
  */
 public class Point {
@@ -49,9 +47,8 @@ public class Point {
      * @param angle the angle of the point
      */
     protected static void checkInvariant(double angle) {
-        if (angle < 0 || angle > 90) {
-            System.out.println("Ponto:vi");
-            exit(0);
+        if (Utils.gt(0, angle) || Utils.gt(angle, 90)) {
+            throw new IllegalArgumentException("Ponto:vi");
         }
     }
 
@@ -78,8 +75,8 @@ public class Point {
      *
      * @return the x-coordinate of the point
      */
-    public double getX() {
-        return this.radius * Math.cos(Math.toRadians(this.angle));
+    public int getX() {
+        return (int) Math.round(this.radius * Math.cos(Math.toRadians(this.angle)));
     }
 
     /**
@@ -87,8 +84,8 @@ public class Point {
      *
      * @return the y-coordinate of the point
      */
-    public double getY() {
-        return this.radius * Math.sin(Math.toRadians(this.angle));
+    public int getY() {
+        return (int) Math.round(this.radius * Math.sin(Math.toRadians(this.angle)));
     }
 
     /**
@@ -112,7 +109,7 @@ public class Point {
     @Override
     public boolean equals(Object obj) {
         if (obj instanceof Point that) {
-            return this.radius == that.radius && this.angle == that.angle;
+            return Utils.eq(this.radius, that.radius) && Utils.eq(this.angle, that.angle);
         }
         return false;
     }
@@ -134,6 +131,6 @@ public class Point {
      */
     @Override
     public String toString() {
-        return "(" + this.radius + ", " + this.angle + ")";
+        return "(" + this.getX() + ", " + this.getY() + ")";
     }
 }
