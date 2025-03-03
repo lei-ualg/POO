@@ -4,7 +4,7 @@ import java.util.List;
  * Rectangle class represents a rectangle in the plane.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
  * @inv d1 = d2
  */
 public class Rectangle {
@@ -35,6 +35,24 @@ public class Rectangle {
             throw new IllegalArgumentException("Retangulo:vi");
         }
     }
+
+    /**
+     * Checks if a segment intersects the rectangle.
+     *
+     * @param seg the segment to be analyzed
+     * @return true if the segment intersects the rectangle, false otherwise
+     */
+    public boolean intersects(Segment seg) {
+        int n = 4;
+        while (n-->0) {
+            Segment side = new Segment(points.get(n), points.get((n + 1) % 4));
+            if (seg.intersects(side)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     /**
      * Returns the list of points that form the rectangle.

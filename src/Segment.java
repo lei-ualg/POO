@@ -2,7 +2,7 @@
  * Segment class represents a segment between two points.
  *
  * @author Leonardo Albudane
- * @version 1.1
+ * @version 2.0
  * @inv a != b
  */
 public class Segment {
@@ -49,6 +49,18 @@ public class Segment {
      */
     public Point getB() {
         return b;
+    }
+
+    /**
+     * Verifies if two segments intersect.
+     *
+     * @param seg the segment to be analyzed
+     * @return true if the segments intersect, false otherwise
+     */
+    public boolean intersects(Segment seg) {
+        Line line1 = new Line(a, b);
+        Line line2 = new Line(seg.getA(), seg.getB());
+        return line1.opposedSides(seg.getA(), seg.getB()) && line2.opposedSides(a, b);
     }
 
     @Override
