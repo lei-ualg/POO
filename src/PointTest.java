@@ -46,4 +46,24 @@ public class PointTest {
         assertEquals(0, p1.distance(p2));
         assertEquals(0, p2.distance(p1));
     }
+
+    @Test
+    public void testEquals() {
+        Point p1 = new Point(5.0, 45);
+        Point p2 = new Point(5.0, 45);
+        Point p3 = new Point(3, 4);
+        Point p4 = new Point(5.0, 53.13010235415598);
+        assertEquals(p1, p2);
+        assertNotEquals(p1, p3);
+        assertNotEquals(p1, p4);
+        assertEquals(p3, p4);
+    }
+
+    @Test
+    public void testToString() {
+        Point p1 = new Point(5.0, 45);
+        assertEquals("(" + p1.getX() + "," + p1.getY() + ")", p1.toString());
+        Point p2 = new Point(5.0, 53.13010235415598);
+        assertEquals("(3,4)", p2.toString());
+    }
 }

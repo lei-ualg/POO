@@ -27,7 +27,7 @@ public class Client {
             Scanner scanner = new Scanner(System.in);
             List<Point> points = new ArrayList<>();
             int n = 4;
-            while (n-- > 0) {
+            while (n-->0) {
                 points.add(new Point(scanner.nextInt(), scanner.nextInt()));
             }
             scanner.close();

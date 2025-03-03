@@ -32,7 +32,7 @@ public class Rectangle {
         double d1 = points.get(0).distance(points.get(2));
         double d2 = points.get(1).distance(points.get(3));
         if (!Utils.eq(d1, d2)) {
-            throw new IllegalArgumentException("Retângulo:vi");
+            throw new IllegalArgumentException("Retangulo:vi");
         }
     }
 
@@ -43,6 +43,6 @@ public class Rectangle {
      */
     @Override
     public String toString() {
-        return "Retângulo: " + points;
+        return points.toString();
     }
 }

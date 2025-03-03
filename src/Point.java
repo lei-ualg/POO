@@ -2,7 +2,7 @@
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 4.2
+ * @version 4.3
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
  */
 public class Point {
@@ -131,6 +131,6 @@ public class Point {
      */
     @Override
     public String toString() {
-        return "(" + this.getX() + ", " + this.getY() + ")";
+        return "(" + this.getX() + "," + this.getY() + ")";
     }
 }
