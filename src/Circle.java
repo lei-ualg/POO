@@ -2,13 +2,13 @@
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 3.0
+ * @version 4.0
  * @inv r > 0
  * @inv P in the first quadrant
  */
-public class Circle {
-    private final double radius;
-    private final Point center;
+public class Circle extends Rectangle {
+    private final double c_radius;
+    private final Point c_center;
 
     /**
      * Constructs a circle with the given radius and center.
@@ -17,9 +17,18 @@ public class Circle {
      * @param center the center of the circle
      */
     public Circle(double radius, Point center) {
-        checkInvariant(radius, center);
-        this.radius = radius;
-        this.center = center;
+        super(checkInvariant(radius, center));
+        this.c_radius = radius;
+        this.c_center = center;
+    }
+
+    /**
+     * Constructs a circle with the given string.
+     *
+     * @param circle_string the string to be parsed
+     */
+    public Circle(String circle_string) {
+        this(Double.parseDouble(circle_string.split(" ")[2]), Utils.parsePoints(circle_string)[0]);
     }
 
     /**
@@ -28,7 +37,7 @@ public class Circle {
      * @param radius the radius of the circle
      * @param center the center of the circle
      */
-    public static void checkInvariant(double radius, Point center) {
+    public static String checkInvariant(double radius, Point center) {
         double Opp = center.getRadius() * Math.sin(Math.toRadians(center.getAngle()));
         double Adj = center.getRadius() * Math.cos(Math.toRadians(center.getAngle()));
         boolean invalidRadius = radius <= 0
@@ -38,6 +47,8 @@ public class Circle {
         if (invalidRadius) {
             throw new IllegalArgumentException("Circulo:vi");
         }
+
+        return center.getX() + " " + center.getY() + " " + (int) (center.getX() + radius) + " " + center.getY() + " " + (int) (center.getX() + radius) + " " + (int) (center.getY() + radius) + " " + center.getX() + " " + (int) (center.getY() + radius);
     }
 
     /**
@@ -45,8 +56,8 @@ public class Circle {
      *
      * @return the radius of the circle
      */
-    public double getRadius() {
-        return radius;
+    public double getCircleRadius() {
+        return c_radius;
     }
 
     /**
@@ -55,7 +66,7 @@ public class Circle {
      * @return the center of the circle
      */
     public Point getCenter() {
-        return center;
+        return c_center;
     }
 
     /**
@@ -65,7 +76,7 @@ public class Circle {
      * @return The perimeter of the circle
      */
     public double perimeter() {
-        return 2 * Math.PI * this.radius;
+        return 2 * Math.PI * this.c_radius;
     }
 
 
@@ -81,8 +92,8 @@ public class Circle {
         double ABx = segment.getB().getX() - segment.getA().getX();
         double ABy = segment.getB().getY() - segment.getA().getY();
 
-        double APx = this.center.getX() - segment.getA().getX();
-        double APy = this.center.getY() - segment.getA().getY();
+        double APx = this.c_center.getX() - segment.getA().getX();
+        double APy = this.c_center.getY() - segment.getA().getY();
 
         double AB_AB = ABx * ABx + ABy * ABy;
         double AP_AB = APx * ABx + APy * ABy;
@@ -91,7 +102,7 @@ public class Circle {
 
         Point closest = new Point((int) (segment.getA().getX() + ABx * t), (int) (segment.getA().getY() + ABy * t));
 
-        return Utils.ge(this.radius, this.center.distance(closest));
+        return Utils.ge(this.c_radius, this.c_center.distance(closest));
     }
 
     /**
@@ -101,6 +112,6 @@ public class Circle {
      */
     @Override
     public String toString() {
-        return "((" + this.radius + ", " + this.center + "))";
+        return "Circulo: " + this.getCenter().toString() + " " + (int) c_radius;
     }
 }

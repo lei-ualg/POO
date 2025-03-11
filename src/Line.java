@@ -33,7 +33,7 @@ public class Line {
      */
     private static void checkInvariant(Point p1, Point p2) {
         if (p1.equals(p2)) {
-            throw new IllegalArgumentException("Line:vi");
+            throw new IllegalArgumentException("Reta:vi");
         }
     }
 

@@ -2,10 +2,10 @@
  * Point class represents a point in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 4.3
+ * @version 5.0
  * @inv 0 ≤ θ ≤ 90 (first quadrant)
  */
-public class Point {
+public class Point implements  Comparable<Point> {
     /**
      * The radius of the point.
      */
@@ -39,6 +39,16 @@ public class Point {
         checkInvariant(angle);
         this.radius = radius;
         this.angle = angle;
+    }
+
+    /**
+     * Constructs a point with the given point.
+     *
+     * @param p the point to copy
+     */
+    public Point(Point p) {
+        this.radius = p.radius;
+        this.angle = p.angle;
     }
 
     /**
@@ -132,5 +142,18 @@ public class Point {
     @Override
     public String toString() {
         return "(" + this.getX() + "," + this.getY() + ")";
+    }
+
+    /**
+     * Compares this point with another point.
+     *
+     * @param that the other point
+     * @return -1 if this point is less than the other point, 0 if they are equal, 1 if this point is greater than the other point
+     */
+    @Override
+    public int compareTo(Point that) {
+        if (this.radius < that.radius) return -1;
+        if (this.radius > that.radius) return 1;
+        return Double.compare(this.angle, that.angle);
     }
 }

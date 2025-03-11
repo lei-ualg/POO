@@ -1,50 +1,50 @@
 import org.junit.jupiter.api.Test;
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
+
+import java.io.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 public class ClientTest {
     @Test
-    public void testValidRectangleInput() {
-        String input = "0 0 4 0 4 3 0 3";
+    public void testClient() throws Exception {
+        String input = """
+                Poligono 6 5 5 8 6 8 7 5 7 11 12 0 9
+                Triangulo 7 1 9 1 19 2
+                Circulo 2 2 2
+                Retangulo 7 1 9 1 9 3 7 3
+                Retangulo 5 5 6 8 3 9 2 6
+                
+                """;    // Input to be provided to System.in
         ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setIn(inputStream);
-        System.setOut(new PrintStream(outputStream));
 
-        Client.main(new String[]{});
+        // Save original System streams
+        InputStream originalIn = System.in;
+        PrintStream originalOut = System.out;
 
-        String expectedOutput = "Retângulo: [(0, 0), (4, 0), (4, 3), (0, 3)]\n";
-        assertEquals(expectedOutput, outputStream.toString());
-    }
+        try {
+            System.setIn(inputStream);
+            System.setOut(new PrintStream(outputStream));
 
-    @Test
-    public void testInvalidRectangleInput() {
-        String input = "0 0 4 0 5 3 0 3";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setIn(inputStream);
-        System.setOut(new PrintStream(outputStream));
+            // Run the main method
+            Client.main(new String[]{});
 
-        Client.main(new String[]{});
+            // Flush output stream
+            System.out.flush();
 
-        String expectedOutput = "Retângulo:vi\n";
-        assertEquals(expectedOutput, outputStream.toString());
-    }
+            // Assert output
+            String expectedOutput = """
+                    Poligono de 6 vertices: [(5,5), (8,6), (8,7), (5,7), (11,12), (0,9)]
+                    Triangulo: [(7,1), (9,1), (19,2)]
+                    Circulo: (2,2) 2
+                    Retangulo: [(7,1), (9,1), (9,3), (7,3)]
+                    Retangulo: [(5,5), (6,8), (3,9), (2,6)]"""; // Expected output
+            assertEquals(expectedOutput, outputStream.toString());
 
-    @Test
-    public void testRotatedRectangleInput() {
-        String input = "1 1 4 1 4 4 1 4";
-        ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        System.setIn(inputStream);
-        System.setOut(new PrintStream(outputStream));
-
-        Client.main(new String[]{});
-
-        String expectedOutput = "Retângulo: [(1, 1), (4, 1), (4, 4), (1, 4)]\n";
-        assertEquals(expectedOutput, outputStream.toString());
+        } finally {
+            // Restore original System streams
+            System.setIn(originalIn);
+            System.setOut(originalOut);
+        }
     }
 }

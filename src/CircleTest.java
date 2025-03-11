@@ -7,7 +7,7 @@ public class CircleTest {
     @Test
     public void testConstructorPolar() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
-        assertEquals(3, c.getRadius());
+        assertEquals(3, c.getCircleRadius());
         assertEquals(45, c.getCenter().getAngle());
         assertEquals(5, c.getCenter().getRadius());
     }
@@ -15,15 +15,23 @@ public class CircleTest {
     @Test
     public void testConstructorCartesian() {
         Circle c = new Circle(3, new Point(3, 4));
-        assertEquals(3, c.getRadius());
+        assertEquals(3, c.getCircleRadius());
         assertEquals(53.13010235415598, c.getCenter().getAngle());
         assertEquals(5, c.getCenter().getRadius());
     }
 
     @Test
+    public void testConstructorString() {
+        Circle c = new Circle("2 2 1");
+        assertEquals(1, c.getCircleRadius());
+        assertEquals(2, c.getCenter().getX());
+        assertEquals(2, c.getCenter().getY());
+    }
+
+    @Test
     public void testGetters() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
-        assertEquals(3, c.getRadius());
+        assertEquals(3, c.getCircleRadius());
         assertEquals(45, c.getCenter().getAngle());
         assertEquals(5, c.getCenter().getRadius());
         Circle c2 = new Circle(3, new Point(3, 4));
@@ -33,18 +41,10 @@ public class CircleTest {
 
     @Test
     public void testCheckInvariant() {
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(-1, new Point(5.0, 45.0));
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(6, new Point(5.0, 91));
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(6, new Point(5.0, -1));
-        });
-        assertThrows(IllegalArgumentException.class, () -> {
-            new Circle(6, new Point(6, 5));
-        });
+        assertThrows(IllegalArgumentException.class, () -> new Circle(-1, new Point(5.0, 45.0)));
+        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(5.0, 91)));
+        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(5.0, -1)));
+        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(6, 5)));
     }
 
     @Test
@@ -65,5 +65,11 @@ public class CircleTest {
     public void checkPerimeter() {
         Circle c = new Circle(3, new Point(5.0, 45));
         assertEquals(18.84955592153876, c.perimeter());
+    }
+
+    @Test
+    public void checkToString() {
+        Circle c = new Circle(1, new Point(2, 2));
+        assertEquals("Circulo: (2,2) 1", c.toString());
     }
 }
