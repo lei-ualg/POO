@@ -19,6 +19,16 @@ public class Rectangle extends Polygon {
     }
 
     /**
+     * Constructs a rectangle with the given points.
+     * This constructor will assume that the array of points is valid.
+     *
+     * @param vertices the list of points that form the rectangle
+     */
+    private Rectangle(Point[] vertices) {
+        super(vertices);
+    }
+
+    /**
      * Checks the invariant of the class.
      *
      * @param points_string the list of points that form the rectangle in string format
@@ -50,6 +60,10 @@ public class Rectangle extends Polygon {
         return false;
     }
 
+    @Override
+    public Rectangle translate(int dx, int dy) {
+        return new Rectangle(super.translate(dx, dy).vertices);
+    }
 
     /**
      * Returns the list of points that form the rectangle.

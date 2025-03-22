@@ -2,9 +2,6 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
 
 import static java.lang.System.exit;
 
@@ -25,8 +22,8 @@ import static java.lang.System.exit;
  */
 public class Client {
     /**
-     * Problem I:<br>
-     * Given various polygons, store them then print their toString() representation.
+     * Problem J:<br>
+     * Given a polygon or a subclass of it, take dx and dy and translate it.
      *
      * @param args the command-line arguments
      */
@@ -36,7 +33,7 @@ public class Client {
         Class<?> cl;
         String s;
         String[] aos;
-        List<Polygon> polygons = new ArrayList<>();
+        GeometricForm p = null;
         while ((s = input.readLine()) != null) {
             if (s.isEmpty())
                 break;
@@ -45,13 +42,19 @@ public class Client {
                 cl = getClass(aos[0]);
                 constructor = cl.getConstructor(String.class);
                 try {
-                    Polygon p = (Polygon) constructor.newInstance(aos[1]);
-                    polygons.add(p);
+                    p = (GeometricForm) constructor.newInstance(aos[1]);
+                    String[] translate = input.readLine().split(" ", 2);
+                    int dx = Integer.parseInt(translate[0]);
+                    int dy = Integer.parseInt(translate[1]);
+                    try {
+                        p = p.translate(dx, dy);
+                    } catch (IllegalArgumentException e) {
+                        exitError(e.getMessage());
+                    }
                 } catch (InvocationTargetException e) {
                     // Verifica se a causa foi um IllegalArgumentException
                     if (e.getCause() instanceof IllegalArgumentException) {
-                        System.out.println(e.getCause().getMessage());
-                        exit(0);
+                        exitError(e.getCause().getMessage());
                     }
                 }
             } catch (ClassNotFoundException cnfe) {
@@ -61,7 +64,7 @@ public class Client {
             }
         }
         input.close();
-        for (Polygon p : polygons) {
+        if (p != null) {
             System.out.println(p);
         }
     }
@@ -74,5 +77,10 @@ public class Client {
             case "Circulo" -> Circle.class;
             default -> throw new ClassNotFoundException(name);
         };
+    }
+
+    private static void exitError(String message) {
+        System.out.println(message);
+        exit(0);
     }
 }

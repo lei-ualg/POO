@@ -49,4 +49,12 @@ public class RectangleTest {
         Segment s3 = new Segment(new Point(5, 0), new Point(5, 5));
         assertFalse(r.intersects(s3));
     }
+
+    @Test
+    public void testTranslate() {
+        String points_string = "0 0 4 0 4 3 0 3";
+        Rectangle r = new Rectangle(points_string);
+        Rectangle r2 = r.translate(1, 1);
+        assertEquals("Retangulo: [(1,1), (5,1), (5,4), (1,4)]", r2.toString());
+    }
 }

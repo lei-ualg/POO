@@ -19,6 +19,15 @@ public class Triangle extends Polygon {
         super(checkInvariant(points_string));
     }
 
+    /**
+     * Constructor for the Triangle class using an array of points
+     * This constructor will assume that the array of points is valid
+     *
+     * @param vertices The vertices of the triangle
+     */
+    private Triangle(Point[] vertices) {
+        super(vertices);
+    }
 
     /**
      * Checks the invariant of the class.
@@ -31,6 +40,18 @@ public class Triangle extends Polygon {
             throw new IllegalArgumentException("Triangulo:vi");
         }
         return points;
+    }
+
+    /**
+     * Translates the triangle by dx and dy.
+     *
+     * @param dx The x translation
+     * @param dy The y translation
+     * @return The translated triangle
+     */
+    @Override
+    public Triangle translate(int dx, int dy) {
+        return new Triangle(super.translate(dx, dy).vertices);
     }
 
 

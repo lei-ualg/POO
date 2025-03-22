@@ -6,9 +6,8 @@
  * @inv r > 0
  * @inv P in the first quadrant
  */
-public class Circle extends Rectangle {
+public class Circle extends Point implements GeometricForm {
     private final double c_radius;
-    private final Point c_center;
 
     /**
      * Constructs a circle with the given radius and center.
@@ -19,7 +18,6 @@ public class Circle extends Rectangle {
     public Circle(double radius, Point center) {
         super(checkInvariant(radius, center));
         this.c_radius = radius;
-        this.c_center = center;
     }
 
     /**
@@ -37,7 +35,7 @@ public class Circle extends Rectangle {
      * @param radius the radius of the circle
      * @param center the center of the circle
      */
-    public static String checkInvariant(double radius, Point center) {
+    public static Point checkInvariant(double radius, Point center) {
         double Opp = center.getRadius() * Math.sin(Math.toRadians(center.getAngle()));
         double Adj = center.getRadius() * Math.cos(Math.toRadians(center.getAngle()));
         boolean invalidRadius = radius <= 0
@@ -48,7 +46,7 @@ public class Circle extends Rectangle {
             throw new IllegalArgumentException("Circulo:vi");
         }
 
-        return center.getX() + " " + center.getY() + " " + (int) (center.getX() + radius) + " " + center.getY() + " " + (int) (center.getX() + radius) + " " + (int) (center.getY() + radius) + " " + center.getX() + " " + (int) (center.getY() + radius);
+        return center;
     }
 
     /**
@@ -61,12 +59,15 @@ public class Circle extends Rectangle {
     }
 
     /**
-     * Returns the center of the circle.
+     * Translates the circle by dx and dy.
      *
-     * @return the center of the circle
+     * @param dx the x-coordinate translation
+     * @param dy the y-coordinate translation
+     * @return the translated circle
      */
-    public Point getCenter() {
-        return c_center;
+    @Override
+    public Circle translate(int dx, int dy) {
+        return new Circle(this.c_radius, super.translate(dx, dy));
     }
 
     /**
@@ -92,8 +93,8 @@ public class Circle extends Rectangle {
         double ABx = segment.getB().getX() - segment.getA().getX();
         double ABy = segment.getB().getY() - segment.getA().getY();
 
-        double APx = this.c_center.getX() - segment.getA().getX();
-        double APy = this.c_center.getY() - segment.getA().getY();
+        double APx = this.getX() - segment.getA().getX();
+        double APy = this.getY() - segment.getA().getY();
 
         double AB_AB = ABx * ABx + ABy * ABy;
         double AP_AB = APx * ABx + APy * ABy;
@@ -102,7 +103,7 @@ public class Circle extends Rectangle {
 
         Point closest = new Point((int) (segment.getA().getX() + ABx * t), (int) (segment.getA().getY() + ABy * t));
 
-        return Utils.ge(this.c_radius, this.c_center.distance(closest));
+        return Utils.ge(this.c_radius, this.distance(closest));
     }
 
     /**
@@ -112,6 +113,6 @@ public class Circle extends Rectangle {
      */
     @Override
     public String toString() {
-        return "Circulo: " + this.getCenter().toString() + " " + (int) c_radius;
+        return "Circulo: " + super.toString() + " " + (int) c_radius;
     }
 }

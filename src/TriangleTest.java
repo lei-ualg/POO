@@ -34,4 +34,12 @@ public class TriangleTest {
         String points_string = "0 0 1 1 2 2"; // Pontos colineares (não formam triângulo válido)
         assertThrows(IllegalArgumentException.class, () -> new Triangle(points_string));
     }
+
+    @Test
+    public void testTranslate() {
+        String points_string = "0 0 3 0 1 2";
+        Triangle t = new Triangle(points_string);
+        Triangle t2 = t.translate(1, 1);
+        assertEquals("Triangulo: [(1,1), (4,1), (2,3)]", t2.toString());
+    }
 }

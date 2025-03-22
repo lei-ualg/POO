@@ -8,35 +8,35 @@ public class CircleTest {
     public void testConstructorPolar() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getCenter().getAngle());
-        assertEquals(5, c.getCenter().getRadius());
+        assertEquals(45, c.getAngle());
+        assertEquals(5, c.getRadius());
     }
 
     @Test
     public void testConstructorCartesian() {
         Circle c = new Circle(3, new Point(3, 4));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(53.13010235415598, c.getCenter().getAngle());
-        assertEquals(5, c.getCenter().getRadius());
+        assertEquals(53.13010235415598, c.getAngle());
+        assertEquals(5, c.getRadius());
     }
 
     @Test
     public void testConstructorString() {
         Circle c = new Circle("2 2 1");
         assertEquals(1, c.getCircleRadius());
-        assertEquals(2, c.getCenter().getX());
-        assertEquals(2, c.getCenter().getY());
+        assertEquals(2, c.getX());
+        assertEquals(2, c.getY());
     }
 
     @Test
     public void testGetters() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getCenter().getAngle());
-        assertEquals(5, c.getCenter().getRadius());
+        assertEquals(45, c.getAngle());
+        assertEquals(5, c.getRadius());
         Circle c2 = new Circle(3, new Point(3, 4));
-        assertEquals(3, c2.getCenter().getX());
-        assertEquals(4, c2.getCenter().getY());
+        assertEquals(3, c2.getX());
+        assertEquals(4, c2.getY());
     }
 
     @Test
@@ -71,5 +71,12 @@ public class CircleTest {
     public void checkToString() {
         Circle c = new Circle(1, new Point(2, 2));
         assertEquals("Circulo: (2,2) 1", c.toString());
+    }
+
+    @Test
+    public void testTranslate() {
+        Circle c = new Circle(1, new Point(2, 2));
+        Circle c2 = c.translate(1, 1);
+        assertEquals("Circulo: (3,3) 1", c2.toString());
     }
 }

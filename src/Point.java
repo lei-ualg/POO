@@ -109,6 +109,16 @@ public class Point implements  Comparable<Point> {
         return Math.sqrt(Math.pow(this.radius, 2) + Math.pow(that.radius, 2) - 2 * this.radius * that.radius * Math.cos(Math.toRadians(this.angle - that.angle)));
     }
 
+    /**
+     * Translates this point by the given dx and dy.
+     *
+     * @param dx the x-coordinate translation
+     * @param dy the y-coordinate translation
+     * @return the translated point
+     */
+    public Point translate(int dx, int dy) {
+        return new Point(this.getX() + dx, this.getY() + dy);
+    }
 
     /**
      * Compares this point to the specified object.
