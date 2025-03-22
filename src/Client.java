@@ -50,7 +50,7 @@ public class Client {
                 } catch (InvocationTargetException e) {
                     // Verifica se a causa foi um IllegalArgumentException
                     if (e.getCause() instanceof IllegalArgumentException) {
-                        System.out.print(e.getCause().getMessage());
+                        System.out.println(e.getCause().getMessage());
                         exit(0);
                     }
                 }
@@ -61,14 +61,8 @@ public class Client {
             }
         }
         input.close();
-        Iterator<Polygon> it = polygons.iterator();
-        while (it.hasNext()) {
-            String out = it.next().toString();
-            if (it.hasNext()) {
-                System.out.println(out);
-            } else {
-                System.out.print(out);
-            }
+        for (Polygon p : polygons) {
+            System.out.println(p);
         }
     }
 

@@ -38,7 +38,8 @@ public class ClientTest {
                     Triangulo: [(7,1), (9,1), (19,2)]
                     Circulo: (2,2) 2
                     Retangulo: [(7,1), (9,1), (9,3), (7,3)]
-                    Retangulo: [(5,5), (6,8), (3,9), (2,6)]"""; // Expected output
+                    Retangulo: [(5,5), (6,8), (3,9), (2,6)]
+                    """; // Expected output
             assertEquals(expectedOutput, outputStream.toString());
 
         } finally {
