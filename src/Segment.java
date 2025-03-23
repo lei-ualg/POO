@@ -2,12 +2,13 @@
  * Segment class represents a segment between two points.
  *
  * @author Leonardo Albudane
- * @version 2.0
+ * @version 3.0
  * @inv a != b
  */
 public class Segment {
     private final Point a;
     private final Point b;
+    public final double slope;
 
     /**
      * Constructs a segment with the given points.
@@ -19,6 +20,7 @@ public class Segment {
         checkInvariant(a, b);
         this.a = a;
         this.b = b;
+        this.slope = (double) (b.getY() - a.getY()) / (b.getX() - a.getX());
     }
 
     /**

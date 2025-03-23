@@ -61,4 +61,23 @@ public final class Utils {
         }
         return vertices;
     }
+
+    /**
+     * Calculates the bounding box that encompasses two rectangles.
+     *
+     * @param r1 the first rectangle
+     * @param r2 the second rectangle
+     * @return a new rectangle representing the smallest bounding box that contains both input rectangles
+     */
+    public static Rectangle sumBoundingBox(Rectangle r1, Rectangle r2) {
+        Point topLeft1 = r1.vertices[0];
+        Point bottomRig1 = r1.vertices[2];
+        Point topLeft2 = r2.vertices[0];
+        Point bottomRig2 = r2.vertices[2];
+        int x1 = Math.min(topLeft1.getX(), topLeft2.getX());
+        int y1 = Math.max(topLeft1.getY(), topLeft2.getY());
+        int x2 = Math.max(bottomRig1.getX(), bottomRig2.getX());
+        int y2 = Math.min(bottomRig1.getY(), bottomRig2.getY());
+        return new Rectangle(new Point(x1, y1), new Point(x2, y2));
+    }
 }

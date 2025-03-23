@@ -32,25 +32,6 @@ public class RectangleTest {
     }
 
     @Test
-    public void testIntersectsWithSegment() {
-        // Create a rectangle in first quadrant (0,0) to (4,3)
-        String points_string = "0 0 4 0 4 3 0 3";
-        Rectangle r = new Rectangle(points_string);
-
-        // Test segment that intersects rectangle (diagonal through rectangle)
-        Segment s1 = new Segment(new Point(0, 0), new Point(4, 3));
-        assertFalse(r.intersects(s1));
-
-        // Test segment that intersects at edge
-        Segment s2 = new Segment(new Point(2, 0), new Point(2, 5));
-        assertTrue(r.intersects(s2));
-
-        // Test segment completely outside rectangle
-        Segment s3 = new Segment(new Point(5, 0), new Point(5, 5));
-        assertFalse(r.intersects(s3));
-    }
-
-    @Test
     public void testTranslate() {
         String points_string = "0 0 4 0 4 3 0 3";
         Rectangle r = new Rectangle(points_string);

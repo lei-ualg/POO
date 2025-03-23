@@ -4,7 +4,7 @@ import java.util.Arrays;
  * Triangle class represents a triangle in the plane.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 2.0
  * @inv n = 3 - The triangle must have 3 vertices
  */
 public class Triangle extends Polygon {

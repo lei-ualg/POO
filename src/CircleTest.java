@@ -8,35 +8,35 @@ public class CircleTest {
     public void testConstructorPolar() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getAngle());
-        assertEquals(5, c.getRadius());
+        assertEquals(45, c.getCircleCenter().getAngle());
+        assertEquals(5, c.getCircleCenter().getRadius());
     }
 
     @Test
     public void testConstructorCartesian() {
         Circle c = new Circle(3, new Point(3, 4));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(53.13010235415598, c.getAngle());
-        assertEquals(5, c.getRadius());
+        assertEquals(53.13010235415598, c.getCircleCenter().getAngle());
+        assertEquals(5, c.getCircleCenter().getRadius());
     }
 
     @Test
     public void testConstructorString() {
         Circle c = new Circle("2 2 1");
         assertEquals(1, c.getCircleRadius());
-        assertEquals(2, c.getX());
-        assertEquals(2, c.getY());
+        assertEquals(2, c.getCircleCenter().getX());
+        assertEquals(2, c.getCircleCenter().getY());
     }
 
     @Test
     public void testGetters() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getAngle());
-        assertEquals(5, c.getRadius());
+        assertEquals(45, c.getCircleCenter().getAngle());
+        assertEquals(5, c.getCircleCenter().getRadius());
         Circle c2 = new Circle(3, new Point(3, 4));
-        assertEquals(3, c2.getX());
-        assertEquals(4, c2.getY());
+        assertEquals(3, c2.getCircleCenter().getX());
+        assertEquals(4, c2.getCircleCenter().getY());
     }
 
     @Test
@@ -78,5 +78,47 @@ public class CircleTest {
         Circle c = new Circle(1, new Point(2, 2));
         Circle c2 = c.translate(1, 1);
         assertEquals("Circulo: (3,3) 1", c2.toString());
+    }
+
+    @Test
+    public void testPointInside() {
+        Circle c = new Circle(6, new Point(10, 10));
+        Point p = new Point(13, 13);
+        assertTrue(c.isPointInside(p));
+    }
+
+    @Test
+    public void testPointOutside() {
+        Circle c = new Circle(6, new Point(10, 10));
+        Point p = new Point(16, 16);
+        assertFalse(c.isPointInside(p));
+    }
+
+    @Test
+    public void testPointOnCircle() {
+        Circle c = new Circle(6, new Point(10, 10));
+        Point p = new Point(16, 10);
+        assertFalse(c.isPointInside(p));
+    }
+
+    @Test
+    public void testBoundingBox() {
+        Circle c = new Circle(6, new Point(10, 10));
+        Rectangle r = c.getBoundingBox();
+        assertEquals("Retangulo: [(4,16), (4,4), (16,4), (16,16)]", r.toString());
+    }
+
+    @Test
+    public void testIntersection() {
+        Circle c1 = new Circle(3, new Point(5.0, 45));
+        Circle c2 = new Circle(3, new Point(5.0, 45));
+        assertTrue(c1.intersects(c2));
+    }
+
+    @Test
+    public void testCollision() {
+        Circle c1 = new Circle(3, new Point(5.0, 45));
+        Circle c2 = new Circle(3, new Point(5.0, 50));
+        assertTrue(c1.collides(c2));
     }
 }

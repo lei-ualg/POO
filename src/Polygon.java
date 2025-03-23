@@ -6,12 +6,12 @@ import java.util.LinkedHashSet;
  * Polygon class represents a polygon in the plane.
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 3.0
  * @inv n >= 3 - The polygon must have more than 3 vertices
  * @inv sideX !intersect sideY - The sides of the polygon cannot intersect
  * @inv 3 !colinear - there can't be more than 2 points in sequence in a line (colinearity)
  */
-public class Polygon implements GeometricForm {
+public class Polygon extends GeometricForm {
     public final Point[] vertices;
 
     /**
@@ -81,6 +81,83 @@ public class Polygon implements GeometricForm {
             newVertices[i] = new Point(vertices[i].getX() + dx, vertices[i].getY() + dy);
         }
         return new Polygon(newVertices);
+    }
+
+    /**
+     * Checks if this polygon intersects with another geometric form
+     *
+     * @param other The other geometric form to check intersection with
+     * @return True if the polygon intersects with the other geometric form, false otherwise
+     */
+    @Override
+    public boolean intersects(GeometricForm other) {
+        if (other instanceof Polygon p) {
+            for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+                Segment s = new Segment(vertices[i], vertices[j]);
+                for (int k = 0, l = p.vertices.length - 1; k < p.vertices.length; l = k++) {
+                    Segment t = new Segment(p.vertices[k], p.vertices[l]);
+                    if (s.slope != t.slope && s.intersects(t)) return true;
+                }
+            }
+        } else if (other instanceof Circle c) {
+            for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+                Segment s = new Segment(vertices[i], vertices[j]);
+                if (c.intersects(s)) return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Calculates the area of the polygon using the shoelace formula
+     *
+     * @return The area of the polygon
+     */
+    @Override
+    public double getArea() {
+        double area = 0;
+        for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+            area += (vertices[j].getX() * vertices[i].getY()) - (vertices[i].getX() * vertices[j].getY());
+        }
+        return Math.abs(area) / 2.0;
+    }
+
+    /**
+     * Calculates the minimum rectangle that contains all vertices of the polygon
+     *
+     * @return A Rectangle object representing the bounding box
+     */
+    @Override
+    public Rectangle getBoundingBox() {
+        int minX = Integer.MAX_VALUE;
+        int minY = Integer.MAX_VALUE;
+        int maxX = Integer.MIN_VALUE;
+        int maxY = Integer.MIN_VALUE;
+        for (Point p : vertices) {
+            minX = Math.min(minX, p.getX());
+            minY = Math.min(minY, p.getY());
+            maxX = Math.max(maxX, p.getX());
+            maxY = Math.max(maxY, p.getY());
+        }
+        return new Rectangle(new Point(minX, maxY), new Point(maxX, minY));
+    }
+
+    /**
+     * Determines if a point is inside the polygon using ray casting algorithm
+     *
+     * @param point The point to check
+     * @return True if the point is inside the polygon, false otherwise
+     */
+    @Override
+    public boolean isPointInside(Point point) {
+        int count = 0;
+        for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+            if (vertices[i].getY() > point.getY() != vertices[j].getY() > point.getY()) {
+                double x = (double) ((vertices[j].getX() - vertices[i].getX()) * (point.getY() - vertices[i].getY())) / (vertices[j].getY() - vertices[i].getY()) + vertices[i].getX();
+                if (point.getX() < x) count++;
+            }
+        }
+        return count % 2 == 1;
     }
 
     /**

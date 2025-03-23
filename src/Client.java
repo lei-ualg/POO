@@ -2,6 +2,8 @@ import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 
 import static java.lang.System.exit;
 
@@ -9,7 +11,7 @@ import static java.lang.System.exit;
  * A client to manage the user input and output.
  *
  * @author Leonardo Albudane
- * @version 8.0
+ * @version 10.0
  * @inv Point 0 ≤ θ ≤ 90 (first quadrant)
  * @inv Circle r > 0
  * @inv Circle P in the first quadrant
@@ -22,8 +24,8 @@ import static java.lang.System.exit;
  */
 public class Client {
     /**
-     * Problem J:<br>
-     * Given a polygon or a subclass of it, take dx and dy and translate it.
+     * Problem K:<br>
+     * Given up to 4 geometric forms, check if any of them collides with the others.
      *
      * @param args the command-line arguments
      */
@@ -33,7 +35,8 @@ public class Client {
         Class<?> cl;
         String s;
         String[] aos;
-        GeometricForm p = null;
+        List<GeometricForm> forms = new ArrayList<>();
+        boolean collides = false;
         while ((s = input.readLine()) != null) {
             if (s.isEmpty())
                 break;
@@ -42,15 +45,16 @@ public class Client {
                 cl = getClass(aos[0]);
                 constructor = cl.getConstructor(String.class);
                 try {
-                    p = (GeometricForm) constructor.newInstance(aos[1]);
-                    String[] translate = input.readLine().split(" ", 2);
-                    int dx = Integer.parseInt(translate[0]);
-                    int dy = Integer.parseInt(translate[1]);
-                    try {
-                        p = p.translate(dx, dy);
-                    } catch (IllegalArgumentException e) {
-                        exitError(e.getMessage());
+                    GeometricForm p = (GeometricForm) constructor.newInstance(aos[1]);
+                    for (int i = 0; i < forms.size(); i++) {
+                        if (forms.get(i).collides(p)) {
+                            System.out.println("Colisao na posicao " + i);
+                            collides = true;
+                            break;
+                        }
                     }
+                    if (collides) break;
+                    forms.add(p);
                 } catch (InvocationTargetException e) {
                     // Verifica se a causa foi um IllegalArgumentException
                     if (e.getCause() instanceof IllegalArgumentException) {
@@ -64,8 +68,8 @@ public class Client {
             }
         }
         input.close();
-        if (p != null) {
-            System.out.println(p);
+        if (!collides) {
+            System.out.println("Sem colisoes");
         }
     }
 
