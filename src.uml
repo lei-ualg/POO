@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>/Users/frankfurt/Documents/ualg/poo/POO Labs/src</OriginalElement>
+  <nodes>
+    <node x="-377.0" y="480.5">PointTest</node>
+    <node x="-377.0" y="787.5">Point</node>
+    <node x="104.5" y="504.5">LineTest</node>
+    <node x="391.5" y="787.5">Polygon</node>
+    <node x="993.5" y="1501.5">UtilsTest</node>
+    <node x="353.5" y="1505.5">Client</node>
+    <node x="-53.5" y="787.5">Utils</node>
+    <node x="1012.5" y="1837.5">ClientTest</node>
+    <node x="711.0" y="787.5">Line</node>
+    <node x="622.0" y="1501.5">PolygonTest</node>
+    <node x="630.5" y="1168.5">Triangle</node>
+    <node x="50.0" y="1501.5">CircleTest</node>
+    <node x="-281.5" y="1501.4999999999998">SegmentTest</node>
+    <node x="347.5" y="1765.5">RectangleTest</node>
+    <node x="-306.5" y="1741.5">TriangleTest</node>
+    <node x="341.0" y="478.5">Segment</node>
+    <node x="38.5" y="1071.5">Circle</node>
+    <node x="711.5" y="491.5">GeometricForm</node>
+    <node x="350.5" y="1168.5">Rectangle</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="SegmentTest" target="Point" relationship="CREATE">
+      <point x="0.0" y="-67.49999999999977" />
+      <point x="-144.5" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="CircleTest" target="Segment" relationship="CREATE">
+      <point x="0.0" y="-211.5" />
+      <point x="173.0" y="1454.0" />
+      <point x="-75.0" y="1454.0" />
+      <point x="-75.0" y="487.0" />
+      <point x="-125.0" y="-97.0" />
+    </edge>
+    <edge source="Utils" target="Point" relationship="CREATE">
+      <point x="180.5" y="0.0" />
+      <point x="329.0" y="867.0" />
+      <point x="329.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="LineTest" target="Line" relationship="CREATE">
+      <point x="0.0" y="79.5" />
+      <point x="206.0" y="717.0" />
+      <point x="686.0" y="717.0" />
+      <point x="686.0" y="867.0" />
+      <point x="-135.0" y="0.0" />
+    </edge>
+    <edge source="PointTest" target="Point" relationship="CREATE">
+      <point x="123.0" y="0.0" />
+      <point x="-92.0" y="584.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Polygon" target="Line" relationship="CREATE">
+      <point x="134.5" y="0.0" />
+      <point x="686.0" y="904.0" />
+      <point x="686.0" y="867.0" />
+      <point x="-135.0" y="0.0" />
+    </edge>
+    <edge source="PolygonTest" target="Point" relationship="CREATE">
+      <point x="0.0" y="-199.5" />
+      <point x="779.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Triangle" target="Polygon" relationship="GENERALIZATION">
+      <point x="0.0" y="-55.5" />
+      <point x="746.0" y="1137.0" />
+      <point x="632.5" y="1137.0" />
+      <point x="106.5" y="116.5" />
+    </edge>
+    <edge source="PolygonTest" target="Circle" relationship="CREATE">
+      <point x="-15.0" y="-199.5" />
+      <point x="764.0" y="1476.0" />
+      <point x="158.0" y="1476.0" />
+      <point x="-15.0" y="152.5" />
+    </edge>
+    <edge source="Segment" target="Point" relationship="TO_ONE">
+      <point x="0.0" y="105.5" />
+      <point x="466.0" y="739.0" />
+      <point x="-266.0" y="739.0" />
+      <point x="0.0" y="-177.5" />
+    </edge>
+    <edge source="TriangleTest" target="Triangle" relationship="CREATE">
+      <point x="0.0" y="91.5" />
+      <point x="-157.0" y="1942.0" />
+      <point x="1198.0" y="1942.0" />
+      <point x="1198.0" y="1224.0" />
+      <point x="115.5" y="0.0" />
+    </edge>
+    <edge source="RectangleTest" target="Rectangle" relationship="CREATE">
+      <point x="111.5" y="0.0" />
+      <point x="602.0" y="1845.0" />
+      <point x="602.0" y="1224.0" />
+      <point x="115.5" y="0.0" />
+    </edge>
+    <edge source="Segment" target="Line" relationship="CREATE">
+      <point x="-15.0" y="105.5" />
+      <point x="451.0" y="717.0" />
+      <point x="686.0" y="717.0" />
+      <point x="686.0" y="867.0" />
+      <point x="-135.0" y="0.0" />
+    </edge>
+    <edge source="Polygon" target="GeometricForm" relationship="GENERALIZATION">
+      <point x="-15.0" y="116.5" />
+      <point x="511.0" y="1094.5" />
+      <point x="1001.0" y="1094.5" />
+      <point x="1001.0" y="584.0" />
+      <point x="134.5" y="0.0" />
+    </edge>
+    <edge source="Polygon" target="Point" relationship="CREATE">
+      <point x="-134.5" y="0.0" />
+      <point x="329.0" y="904.0" />
+      <point x="329.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Rectangle" target="Point" relationship="CREATE">
+      <point x="-115.5" y="0.0" />
+      <point x="329.0" y="1224.0" />
+      <point x="329.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="CircleTest" target="Point" relationship="CREATE">
+      <point x="123.0" y="0.0" />
+      <point x="329.0" y="1713.0" />
+      <point x="329.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Polygon" target="Rectangle" relationship="CREATE">
+      <point x="0.0" y="116.5" />
+      <point x="526.0" y="1046.0" />
+      <point x="602.0" y="1046.0" />
+      <point x="602.0" y="1224.0" />
+      <point x="115.5" y="0.0" />
+    </edge>
+    <edge source="SegmentTest" target="Segment" relationship="CREATE">
+      <point x="-18.0" y="-67.49999999999977" />
+      <point x="-162.5" y="1160.0" />
+      <point x="-75.0" y="1160.0" />
+      <point x="-75.0" y="487.0" />
+      <point x="-125.0" y="-97.0" />
+    </edge>
+    <edge source="Circle" target="Rectangle" relationship="CREATE">
+      <point x="0.0" y="-152.5" />
+      <point x="173.0" y="1046.0" />
+      <point x="602.0" y="1046.0" />
+      <point x="602.0" y="1224.0" />
+      <point x="115.5" y="0.0" />
+    </edge>
+    <edge source="Circle" target="Point" relationship="TO_ONE">
+      <point x="134.5" y="-83.5" />
+      <point x="358.0" y="1140.5" />
+      <point x="358.0" y="739.0" />
+      <point x="-266.0" y="739.0" />
+      <point x="0.0" y="-177.5" />
+    </edge>
+    <edge source="CircleTest" target="Circle" relationship="CREATE">
+      <point x="-15.0" y="-211.5" />
+      <point x="-15.0" y="152.5" />
+    </edge>
+    <edge source="LineTest" target="Point" relationship="CREATE">
+      <point x="-101.5" y="0.0" />
+      <point x="-92.0" y="584.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Polygon" target="Segment" relationship="CREATE">
+      <point x="0.0" y="-116.5" />
+      <point x="526.0" y="770.0" />
+      <point x="-75.0" y="770.0" />
+      <point x="-75.0" y="487.0" />
+      <point x="-125.0" y="-97.0" />
+    </edge>
+    <edge source="Polygon" target="Point" relationship="TO_MANY">
+      <point x="-134.5" y="-15.0" />
+      <point x="358.0" y="889.0" />
+      <point x="358.0" y="739.0" />
+      <point x="-266.0" y="739.0" />
+      <point x="0.0" y="-177.5" />
+    </edge>
+    <edge source="Rectangle" target="Polygon" relationship="GENERALIZATION">
+      <point x="0.0" y="-55.5" />
+      <point x="466.0" y="1137.0" />
+      <point x="632.5" y="1137.0" />
+      <point x="106.5" y="116.5" />
+    </edge>
+    <edge source="Utils" target="Rectangle" relationship="CREATE">
+      <point x="0.0" y="79.5" />
+      <point x="127.0" y="1046.0" />
+      <point x="602.0" y="1046.0" />
+      <point x="602.0" y="1224.0" />
+      <point x="115.5" y="0.0" />
+    </edge>
+    <edge source="Circle" target="Point" relationship="CREATE">
+      <point x="134.5" y="0.0" />
+      <point x="329.0" y="1224.0" />
+      <point x="329.0" y="1439.0" />
+      <point x="-92.0" y="1439.0" />
+      <point x="-92.0" y="965.0" />
+      <point x="111.0" y="0.0" />
+    </edge>
+    <edge source="Circle" target="GeometricForm" relationship="GENERALIZATION">
+      <point x="134.5" y="-129.5" />
+      <point x="1001.0" y="1094.5" />
+      <point x="1001.0" y="584.0" />
+      <point x="134.5" y="0.0" />
+    </edge>
+    <edge source="PolygonTest" target="Polygon" relationship="CREATE">
+      <point x="100.0" y="-199.5" />
+      <point x="879.0" y="964.0" />
+      <point x="134.5" y="60.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Compact" zoom="1.0" showDependencies="true" x="630.0000000000002" y="1410.5" />
+  <SelectedNodes>
+    <node>Segment</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

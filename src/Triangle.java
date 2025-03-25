@@ -51,7 +51,7 @@ public class Triangle extends Polygon {
      */
     @Override
     public Triangle translate(int dx, int dy) {
-        return new Triangle(super.translate(dx, dy).vertices);
+        return new Triangle(translatePoints(vertices, dx, dy));
     }
 
 

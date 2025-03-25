@@ -2,7 +2,7 @@
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 5.0
+ * @version 5.1
  * @inv r > 0
  * @inv P in the first quadrant
  */
@@ -129,7 +129,7 @@ public class Circle extends GeometricForm {
      * Checks if the circle intersects with another geometric form.
      * The method handles different types of geometric forms:
      * - For circles: Checks if the distance between centers is less than or equal to the sum of radii
-     * - For other forms: Delegates to the other form's collision detection
+     * - For other forms: Delegates to the other form's intersection detection
      *
      * @param f The other geometric form to check intersection with
      * @return True if the circle intersects with the other geometric form, false otherwise
@@ -139,7 +139,7 @@ public class Circle extends GeometricForm {
         if (f instanceof Circle c) {
             return !Utils.gt(this.c_center.distance(c.c_center), this.c_radius + c.c_radius);
         } else {
-            return f.collides(this);
+            return f.intersects(this);
         }
     }
 

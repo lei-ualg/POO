@@ -61,7 +61,7 @@ public class Rectangle extends Polygon {
 
     @Override
     public Rectangle translate(int dx, int dy) {
-        return new Rectangle(super.translate(dx, dy).vertices);
+        return new Rectangle(translatePoints(vertices, dx, dy));
     }
 
     /**

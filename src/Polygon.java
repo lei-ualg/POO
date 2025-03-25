@@ -68,6 +68,22 @@ public class Polygon extends GeometricForm {
     }
 
     /**
+     * Translates the points by dx and dy
+     *
+     * @param points The points to translate
+     * @param dx     The x translation
+     * @param dy     The y translation
+     * @return The translated points
+     */
+    protected Point[] translatePoints(Point[] points, int dx, int dy) {
+        Point[] newPoints = new Point[points.length];
+        for (int i = 0; i < points.length; i++) {
+            newPoints[i] = new Point(points[i].getX() + dx, points[i].getY() + dy);
+        }
+        return newPoints;
+    }
+
+    /**
      * Translates the polygon by dx and dy
      *
      * @param dx The x translation
@@ -76,11 +92,7 @@ public class Polygon extends GeometricForm {
      */
     @Override
     public Polygon translate(int dx, int dy) {
-        Point[] newVertices = new Point[vertices.length];
-        for (int i = 0; i < vertices.length; i++) {
-            newVertices[i] = new Point(vertices[i].getX() + dx, vertices[i].getY() + dy);
-        }
-        return new Polygon(newVertices);
+        return new Polygon(translatePoints(vertices, dx, dy));
     }
 
     /**
