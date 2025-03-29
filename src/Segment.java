@@ -2,7 +2,7 @@
  * Segment class represents a segment between two points.
  *
  * @author Leonardo Albudane
- * @version 3.0
+ * @version 3.1
  * @inv a != b
  */
 public class Segment {
@@ -20,7 +20,7 @@ public class Segment {
         checkInvariant(a, b);
         this.a = a;
         this.b = b;
-        this.slope = (double) (b.getY() - a.getY()) / (b.getX() - a.getX());
+        this.slope = (b.getY() - a.getY()) / (b.getX() - a.getX());
     }
 
     /**

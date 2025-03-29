@@ -32,7 +32,7 @@ public class PolygonTest {
     public void testToString() {
         String points_string = "3 0 0 3 0 1 2";
         Polygon p = new Polygon(points_string);
-        assertEquals("Poligono de 3 vertices: [(0,0), (3,0), (1,2)]", p.toString());
+        assertEquals("(0.00,0.00) (3.00,0.00) (1.00,2.00)", p.toString());
     }
 
     @Test
@@ -60,10 +60,10 @@ public class PolygonTest {
     @Test
     public void testTranslate() {
         Polygon original = new Polygon("3 0 0 3 0 1 2");
-        Polygon translated = original.translate(2, 3);
+        original.translate(2, 3);
         
         Polygon expected = new Polygon("3 2 3 5 3 3 5");
-        assertEquals(expected, translated);
+        assertEquals(expected, original);
     }
     
     @Test
@@ -104,7 +104,7 @@ public class PolygonTest {
     @Test
     public void testGetBoundingBox() {
         Polygon p = new Polygon("4 1 1 5 1 5 5 1 5");
-        Rectangle bbox = p.getBoundingBox();
+        Polygon bbox = p.getBoundingBox();
         
         assertEquals(new Point(1, 5), bbox.vertices[0]);
         assertEquals(new Point(5, 1), bbox.vertices[2]);

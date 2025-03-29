@@ -2,14 +2,14 @@
  * A class to represent a line in the plane
  *
  * @author Leonardo Albudane
- * @version 1.0
+ * @version 1.1
  * @inv p1 != p2 - The points are different
  */
 public class Line {
     /**
      * The coefficients of the line
      */
-    private final int a, b, c;
+    private final double a, b, c;
 
     /**
      * Constructor for the Line class
@@ -43,7 +43,7 @@ public class Line {
      * @param p The point to be analyzed
      * @return Where the point is located in relation to the line
      */
-    public int at(Point p) {
+    public double at(Point p) {
         return a * p.getX() + b * p.getY() + c;
     }
 

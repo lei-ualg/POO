@@ -8,9 +8,9 @@ public class ClientTest {
     @Test
     public void testClient() throws Exception {
         String input = """
-                Poligono 4 5 5 8 6 8 7 5 7
-                Triangulo 7 1 9 1 9 3
-                Circulo 4 4 2
+                PlayerOne
+                5 9 0 90 2
+                2 2 2 6 4 6 4 2
                 
                 """;    // Input to be provided to System.in
         ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
@@ -32,7 +32,9 @@ public class ClientTest {
 
             // Assert output
             String expectedOutput = """
-                    Colisao na posicao 0
+                    PlayerOne
+                    (5.00,9.00) 0 90.00 2.00
+                    (9.00,7.00) (1.00,7.00) (1.00,11.00) (9.00,11.00)
                     """; // Expected output
             assertEquals(expectedOutput, outputStream.toString());
 

@@ -3,7 +3,7 @@
  * Epsilon is set to 1e-9.
  *
  * @author Leonardo Albudane
- * @version 2.0
+ * @version 2.1å
  */
 public final class Utils {
     /**
@@ -69,15 +69,15 @@ public final class Utils {
      * @param r2 the second rectangle
      * @return a new rectangle representing the smallest bounding box that contains both input rectangles
      */
-    public static Rectangle sumBoundingBox(Rectangle r1, Rectangle r2) {
+    public static Polygon sumBoundingBox(Polygon r1, Polygon r2) {
         Point topLeft1 = r1.vertices[0];
         Point bottomRig1 = r1.vertices[2];
         Point topLeft2 = r2.vertices[0];
         Point bottomRig2 = r2.vertices[2];
-        int x1 = Math.min(topLeft1.getX(), topLeft2.getX());
-        int y1 = Math.max(topLeft1.getY(), topLeft2.getY());
-        int x2 = Math.max(bottomRig1.getX(), bottomRig2.getX());
-        int y2 = Math.min(bottomRig1.getY(), bottomRig2.getY());
-        return new Rectangle(new Point(x1, y1), new Point(x2, y2));
+        double x1 = Math.min(topLeft1.getX(), topLeft2.getX());
+        double y1 = Math.max(topLeft1.getY(), topLeft2.getY());
+        double x2 = Math.max(bottomRig1.getX(), bottomRig2.getX());
+        double y2 = Math.min(bottomRig1.getY(), bottomRig2.getY());
+        return new Polygon(new Point(x1, y1), new Point(x2, y2));
     }
 }

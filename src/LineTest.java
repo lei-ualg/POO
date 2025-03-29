@@ -59,6 +59,6 @@ public class LineTest {
         Point p1 = new Point(0, 0);
         Point p2 = new Point(4, 3);
         Line l = new Line(p1, p2);
-        assertEquals("(3x + -4y + 0 = 0)", l.toString());
+        assertEquals("(3.0x + -4.0y + 0.0 = 0)", l.toString());
     }
 }

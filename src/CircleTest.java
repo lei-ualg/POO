@@ -5,19 +5,11 @@ import org.junit.jupiter.api.Test;
 public class CircleTest {
 
     @Test
-    public void testConstructorPolar() {
-        Circle c = new Circle(3, new Point(5.0, 45.0));
-        assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getCircleCenter().getAngle());
-        assertEquals(5, c.getCircleCenter().getRadius());
-    }
-
-    @Test
     public void testConstructorCartesian() {
         Circle c = new Circle(3, new Point(3, 4));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(53.13010235415598, c.getCircleCenter().getAngle());
-        assertEquals(5, c.getCircleCenter().getRadius());
+        assertEquals(3, c.getCircleCenter().getX());
+        assertEquals(4, c.getCircleCenter().getY());
     }
 
     @Test
@@ -32,8 +24,8 @@ public class CircleTest {
     public void testGetters() {
         Circle c = new Circle(3, new Point(5.0, 45.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getCircleCenter().getAngle());
-        assertEquals(5, c.getCircleCenter().getRadius());
+        assertEquals(45, c.getCircleCenter().getY());
+        assertEquals(5, c.getCircleCenter().getX());
         Circle c2 = new Circle(3, new Point(3, 4));
         assertEquals(3, c2.getCircleCenter().getX());
         assertEquals(4, c2.getCircleCenter().getY());
@@ -42,9 +34,6 @@ public class CircleTest {
     @Test
     public void testCheckInvariant() {
         assertThrows(IllegalArgumentException.class, () -> new Circle(-1, new Point(5.0, 45.0)));
-        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(5.0, 91)));
-        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(5.0, -1)));
-        assertThrows(IllegalArgumentException.class, () -> new Circle(6, new Point(6, 5)));
     }
 
     @Test
@@ -70,14 +59,14 @@ public class CircleTest {
     @Test
     public void checkToString() {
         Circle c = new Circle(1, new Point(2, 2));
-        assertEquals("Circulo: (2,2) 1", c.toString());
+        assertEquals("(2.00,2.00) 1.00", c.toString());
     }
 
     @Test
     public void testTranslate() {
         Circle c = new Circle(1, new Point(2, 2));
-        Circle c2 = c.translate(1, 1);
-        assertEquals("Circulo: (3,3) 1", c2.toString());
+        c.translate(1, 1);
+        assertEquals("(3.00,3.00) 1.00", c.toString());
     }
 
     @Test
@@ -104,8 +93,8 @@ public class CircleTest {
     @Test
     public void testBoundingBox() {
         Circle c = new Circle(6, new Point(10, 10));
-        Rectangle r = c.getBoundingBox();
-        assertEquals("Retangulo: [(4,16), (4,4), (16,4), (16,16)]", r.toString());
+        Polygon r = c.getBoundingBox();
+        assertEquals("(4.00,16.00) (4.00,4.00) (16.00,4.00) (16.00,16.00)", r.toString());
     }
 
     @Test

@@ -6,13 +6,13 @@ import java.util.LinkedHashSet;
  * Polygon class represents a polygon in the plane.
  *
  * @author Leonardo Albudane
- * @version 3.0
+ * @version 4.0
  * @inv n >= 3 - The polygon must have more than 3 vertices
  * @inv sideX !intersect sideY - The sides of the polygon cannot intersect
  * @inv 3 !colinear - there can't be more than 2 points in sequence in a line (colinearity)
  */
 public class Polygon extends GeometricForm {
-    public final Point[] vertices;
+    public Point[] vertices;
 
     /**
      * Constructor for the Polygon class
@@ -28,9 +28,9 @@ public class Polygon extends GeometricForm {
         Point[] vertices = new Point[points.length];
         Segment[] sides = new Segment[points.length];
         for (int i = 0; i < n; i++) {
-            Point p = new Point(points[i]);
-            Point q = new Point(points[(i + 1) % points.length]);
-            Point r = new Point(points[(i + 2) % points.length]);
+            Point p = points[i];
+            Point q = points[(i + 1) % points.length];
+            Point r = points[(i + 2) % points.length];
             vertices[i] = p;
             Segment seg = new Segment(p, q);
             if (new Line(p, q).has(r)) throw new IllegalArgumentException("Poligono:vi"); // colinearity
@@ -53,9 +53,9 @@ public class Polygon extends GeometricForm {
         Point[] vertices = new Point[points.length];
         Segment[] sides = new Segment[points.length];
         for (int i = 0; i < points.length; i++) {
-            Point p = new Point(points[i]);
-            Point q = new Point(points[(i + 1) % points.length]);
-            Point r = new Point(points[(i + 2) % points.length]);
+            Point p = points[i];
+            Point q = points[(i + 1) % points.length];
+            Point r = points[(i + 2) % points.length];
             vertices[i] = p;
             Segment seg = new Segment(p, q);
             if (new Line(p, q).has(r)) throw new IllegalArgumentException("Poligono:vi"); // colinearity
@@ -67,20 +67,13 @@ public class Polygon extends GeometricForm {
         this.vertices = vertices;
     }
 
-    /**
-     * Translates the points by dx and dy
-     *
-     * @param points The points to translate
-     * @param dx     The x translation
-     * @param dy     The y translation
-     * @return The translated points
-     */
-    protected Point[] translatePoints(Point[] points, int dx, int dy) {
-        Point[] newPoints = new Point[points.length];
-        for (int i = 0; i < points.length; i++) {
-            newPoints[i] = new Point(points[i].getX() + dx, points[i].getY() + dy);
-        }
-        return newPoints;
+    public Polygon(Point topLeft, Point bottomRight) {
+        this(new Point[]{
+                topLeft,
+                new Point(topLeft.getX(), bottomRight.getY()),
+                bottomRight,
+                new Point(bottomRight.getX(), topLeft.getY())
+        });
     }
 
     /**
@@ -91,31 +84,35 @@ public class Polygon extends GeometricForm {
      * @return The translated polygon
      */
     @Override
-    public Polygon translate(int dx, int dy) {
-        return new Polygon(translatePoints(vertices, dx, dy));
+    public void translate(double dx, double dy) {
+        for (Point point : vertices) {
+            point.translate(dx, dy);
+        }
     }
 
     /**
      * Checks if this polygon intersects with another geometric form
      *
-     * @param other The other geometric form to check intersection with
+     * @param p The other geometric form to check intersection with
      * @return True if the polygon intersects with the other geometric form, false otherwise
      */
     @Override
-    public boolean intersects(GeometricForm other) {
-        if (other instanceof Polygon p) {
-            for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-                Segment s = new Segment(vertices[i], vertices[j]);
-                for (int k = 0, l = p.vertices.length - 1; k < p.vertices.length; l = k++) {
-                    Segment t = new Segment(p.vertices[k], p.vertices[l]);
-                    if (s.slope != t.slope && s.intersects(t)) return true;
-                }
+    public boolean intersects(Polygon p) {
+        for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+            Segment s = new Segment(vertices[i], vertices[j]);
+            for (int k = 0, l = p.vertices.length - 1; k < p.vertices.length; l = k++) {
+                Segment t = new Segment(p.vertices[k], p.vertices[l]);
+                if (s.slope != t.slope && s.intersects(t)) return true;
             }
-        } else if (other instanceof Circle c) {
-            for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-                Segment s = new Segment(vertices[i], vertices[j]);
-                if (c.intersects(s)) return true;
-            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean intersects(Circle c) {
+        for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
+            Segment s = new Segment(vertices[i], vertices[j]);
+            if (c.intersects(s)) return true;
         }
         return false;
     }
@@ -140,18 +137,73 @@ public class Polygon extends GeometricForm {
      * @return A Rectangle object representing the bounding box
      */
     @Override
-    public Rectangle getBoundingBox() {
-        int minX = Integer.MAX_VALUE;
-        int minY = Integer.MAX_VALUE;
-        int maxX = Integer.MIN_VALUE;
-        int maxY = Integer.MIN_VALUE;
+    public Polygon getBoundingBox() {
+        double minX = Double.MAX_VALUE;
+        double minY = Double.MAX_VALUE;
+        double maxX = Double.MIN_VALUE;
+        double maxY = Double.MIN_VALUE;
         for (Point p : vertices) {
             minX = Math.min(minX, p.getX());
             minY = Math.min(minY, p.getY());
             maxX = Math.max(maxX, p.getX());
             maxY = Math.max(maxY, p.getY());
         }
-        return new Rectangle(new Point(minX, maxY), new Point(maxX, minY));
+        return new Polygon(new Point(minX, maxY), new Point(maxX, minY));
+    }
+
+    /**
+     * Calculates the centroid of the polygon
+     *
+     * @return The centroid of the polygon
+     */
+    @Override
+    public Point getCentroid() {
+        double cx = 0;
+        double cy = 0;
+        for (Point p : vertices) {
+            cx += p.getX();
+            cy += p.getY();
+        }
+        return new Point(cx / vertices.length, cy / vertices.length);
+    }
+
+    /**
+     * Sets the centroid of the polygon to a new point
+     *
+     * @param p The new centroid
+     */
+    @Override
+    public void setCentroid(Point p) {
+        Point centroid = getCentroid();
+        double dx = p.getX() - centroid.getX();
+        double dy = p.getY() - centroid.getY();
+        translate(dx, dy);
+    }
+
+    /**
+     * Rotates the polygon around a point
+     *
+     * @param dTheta The angle to rotate the polygon
+     */
+    @Override
+    public void rotate(double dTheta) {
+        Point centroid = getCentroid();
+        for (Point p : vertices) {
+            p.rotate(dTheta, centroid);
+        }
+    }
+
+    /**
+     * Scales the polygon by a factor
+     *
+     * @param dScale The factor to scale the polygon by
+     */
+    @Override
+    public void scale(double dScale) {
+        Point centroid = getCentroid();
+        for (Point p : vertices) {
+            p.scale(dScale, centroid);
+        }
     }
 
     /**
@@ -165,7 +217,7 @@ public class Polygon extends GeometricForm {
         int count = 0;
         for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
             if (vertices[i].getY() > point.getY() != vertices[j].getY() > point.getY()) {
-                double x = (double) ((vertices[j].getX() - vertices[i].getX()) * (point.getY() - vertices[i].getY())) / (vertices[j].getY() - vertices[i].getY()) + vertices[i].getX();
+                double x = (vertices[j].getX() - vertices[i].getX()) * (point.getY() - vertices[i].getY()) / (vertices[j].getY() - vertices[i].getY()) + vertices[i].getX();
                 if (point.getX() < x) count++;
             }
         }
@@ -179,7 +231,11 @@ public class Polygon extends GeometricForm {
      */
     @Override
     public String toString() {
-        return "Poligono de %d vertices: ".formatted(vertices.length) + Arrays.toString(vertices);
+        StringBuilder sb = new StringBuilder();
+        for (Point p : vertices) {
+            sb.append(p).append(" ");
+        }
+        return sb.toString().trim();
     }
 
     /**

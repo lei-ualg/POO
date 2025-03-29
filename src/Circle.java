@@ -2,12 +2,11 @@
  * Circle class represents a circle in polar coordinates.
  *
  * @author Leonardo Albudane
- * @version 5.1
+ * @version 6.0
  * @inv r > 0
- * @inv P in the first quadrant
  */
 public class Circle extends GeometricForm {
-    private final double c_radius;
+    private double c_radius;
     private final Point c_center;
 
     /**
@@ -17,7 +16,8 @@ public class Circle extends GeometricForm {
      * @param center the center of the circle
      */
     public Circle(double radius, Point center) {
-        this.c_center = checkInvariant(radius, center);
+        checkInvariant(radius);
+        this.c_center = center;
         this.c_radius = radius;
     }
 
@@ -34,24 +34,14 @@ public class Circle extends GeometricForm {
      * Checks the invariant of the class.
      * Verifies that:
      * 1. The radius is positive
-     * 2. The center point is valid (the circle must be fully in the first quadrant)
      *
      * @param radius the radius of the circle
-     * @param center the center of the circle
-     * @return the validated center point
      * @throws IllegalArgumentException if any invariant is violated
      */
-    public static Point checkInvariant(double radius, Point center) {
-        double Opp = center.getRadius() * Math.sin(Math.toRadians(center.getAngle()));
-        double Adj = center.getRadius() * Math.cos(Math.toRadians(center.getAngle()));
-        boolean invalidRadius = radius <= 0
-                || Utils.gt(radius, Math.abs(Opp))
-                || Utils.gt(radius, Math.abs(Adj));
-
-        if (invalidRadius) {
+    public static void checkInvariant(double radius) {
+        if (radius <= 0) {
             throw new IllegalArgumentException("Circulo:vi");
         }
-        return center;
     }
 
     /**
@@ -80,8 +70,8 @@ public class Circle extends GeometricForm {
      * @return the translated circle
      */
     @Override
-    public Circle translate(int dx, int dy) {
-        return new Circle(this.c_radius, this.c_center.translate(dx, dy));
+    public void translate(double dx, double dy) {
+        this.c_center.translate(dx, dy);
     }
 
     /**
@@ -131,17 +121,19 @@ public class Circle extends GeometricForm {
      * - For circles: Checks if the distance between centers is less than or equal to the sum of radii
      * - For other forms: Delegates to the other form's intersection detection
      *
-     * @param f The other geometric form to check intersection with
+     * @param p The other geometric form to check intersection with
      * @return True if the circle intersects with the other geometric form, false otherwise
      */
     @Override
-    public boolean intersects(GeometricForm f) {
-        if (f instanceof Circle c) {
-            return !Utils.gt(this.c_center.distance(c.c_center), this.c_radius + c.c_radius);
-        } else {
-            return f.intersects(this);
-        }
+    public boolean intersects(Polygon p) {
+        return p.intersects(this);
     }
+
+    @Override
+    public boolean intersects(Circle c) {
+        return !Utils.gt(this.c_center.distance(c.c_center), this.c_radius + c.c_radius);
+    }
+
 
     /**
      * Calculates the area of the circle.
@@ -156,16 +148,54 @@ public class Circle extends GeometricForm {
 
     /**
      * Returns the bounding box of the circle.
+     *
      * @return the bounding box of the circle
      */
     @Override
-    public Rectangle getBoundingBox() {
-        return new Rectangle(new Point((int) (this.c_center.getX() - this.c_radius), (int) (this.c_center.getY() + this.c_radius)),
+    public Polygon getBoundingBox() {
+        return new Polygon(new Point((int) (this.c_center.getX() - this.c_radius), (int) (this.c_center.getY() + this.c_radius)),
                 new Point((int) (this.c_center.getX() + this.c_radius), (int) (this.c_center.getY() - this.c_radius)));
     }
 
     /**
+     * Returns the centroid of the circle.
+     * @return the centroid of the circle
+     */
+    @Override
+    public Point getCentroid() {
+        return this.c_center;
+    }
+
+    /**
+     * Sets the centroid of the circle.
+     * @param p the new centroid
+     */
+    @Override
+    public void setCentroid(Point p) {
+        this.c_center.setX(p.getX());
+        this.c_center.setY(p.getY());
+    }
+
+    /**
+     * Scales the circle by a factor.
+     * @param dScale the factor to scale the circle by
+     */
+    @Override
+    public void scale(double dScale) {
+        this.c_radius *= dScale;
+    }
+
+    /**
+     * Does nothing since circles are rotation invariant.
+     */
+    @Override
+    public void rotate(double dScale) {
+        // Do nothing
+    }
+
+    /**
      * Checks if a point is inside the circle.
+     *
      * @param point the point to check
      * @return true if the point is inside the circle, false otherwise
      */
@@ -181,6 +211,6 @@ public class Circle extends GeometricForm {
      */
     @Override
     public String toString() {
-        return "Circulo: " + c_center.toString() + " " + (int) c_radius;
+        return "%s %.2f".formatted(this.c_center.toString(), this.c_radius);
     }
 }
