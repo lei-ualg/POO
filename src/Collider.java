@@ -8,6 +8,11 @@ public class Collider implements ICollider {
     }
 
     @Override
+    public GeometricForm getForm() {
+        return this.shape;
+    }
+
+    @Override
     public Point centroid() {
         return this.transform.position();
     }

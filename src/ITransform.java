@@ -1,4 +1,32 @@
 public interface ITransform {
+
+    /**
+     * Apply this ITransform to the GeometricForm
+     *
+     * @param shape the GeometricForm to apply this ITransform to
+     */
+    void applyRotate(GeometricForm shape);
+
+    /**
+     * Apply this ITransform to the GeometricForm
+     *
+     * @param shape the GeometricForm to apply this ITransform to
+     */
+    void applyScale(GeometricForm shape);
+
+    /**
+     * Apply this ITransform to the GeometricForm
+     *
+     * @param shape the GeometricForm to apply this ITransform to
+     */
+    void applyMove(GeometricForm shape);
+
+    /**
+     * Apply this ITransform to the GeometricForm
+     * @param shape the GeometricForm to apply this ITransform to
+     */
+    void applyAll(GeometricForm shape);
+
     /**
      * Move this ITransform by dPos.x(), dPos.y() and dlayer
      *

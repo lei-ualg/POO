@@ -7,7 +7,7 @@ public class GameObjectTest {
     @Test
     public void testConstructor() {
         GeometricForm shape = new Circle(5, new Point(10,10));
-        ITransform transform = new Transform(new Point(0,0), 0, 0, 1, shape);
+        ITransform transform = new Transform(new Point(0,0), 0, 0, 1);
         ICollider collider = new Collider(transform, shape);
         IGameObject gameObject = new GameObject("TestName01", transform, collider);
 
@@ -19,7 +19,7 @@ public class GameObjectTest {
     @Test
     public void testToStringCircle() {
         GeometricForm shape = new Circle(5, new Point(10,10));
-        ITransform transform = new Transform(new Point(0,0), 0, 0, 1, shape);
+        ITransform transform = new Transform(new Point(0,0), 0, 0, 1);
         ICollider collider = new Collider(transform, shape);
         IGameObject gameObject = new GameObject("TestCircle01", transform, collider);
 
@@ -32,7 +32,7 @@ public class GameObjectTest {
     @Test
     public void testToStringPolygon() {
         GeometricForm shape = new Polygon("4 2 2 2 6 5 6 4 2");
-        ITransform transform = new Transform(new Point(0,0), 0, 0, 1, shape);
+        ITransform transform = new Transform(new Point(0,0), 0, 0, 1);
         ICollider collider = new Collider(transform, shape);
         IGameObject gameObject = new GameObject("TestPoly01", transform, collider);
         assertEquals("""

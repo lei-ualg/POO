@@ -81,7 +81,6 @@ public class Polygon extends GeometricForm {
      *
      * @param dx The x translation
      * @param dy The y translation
-     * @return The translated polygon
      */
     @Override
     public void translate(double dx, double dy) {
@@ -124,11 +123,17 @@ public class Polygon extends GeometricForm {
      */
     @Override
     public double getArea() {
-        double area = 0;
-        for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
-            area += (vertices[j].getX() * vertices[i].getY()) - (vertices[i].getX() * vertices[j].getY());
+        int n = vertices.length;
+        double A = 0;
+
+        for (int i = 0; i < n - 1; i++) {
+            A += vertices[i].getX() * vertices[i + 1].getY() - vertices[i + 1].getX() * vertices[i].getY();
         }
-        return Math.abs(area) / 2.0;
+
+        // Closing the polygon
+        A += vertices[n - 1].getX() * vertices[0].getY() - vertices[0].getX() * vertices[n - 1].getY();
+
+        return Math.abs(A) * 0.5;
     }
 
     /**
@@ -158,13 +163,27 @@ public class Polygon extends GeometricForm {
      */
     @Override
     public Point getCentroid() {
-        double cx = 0;
-        double cy = 0;
-        for (Point p : vertices) {
-            cx += p.getX();
-            cy += p.getY();
+        int n = vertices.length;
+        double A = 0;
+        double Cx = 0, Cy = 0;
+
+        for (int i = 0; i < n - 1; i++) {
+            double cross = vertices[i].getX() * vertices[i + 1].getY() - vertices[i + 1].getX() * vertices[i].getY();
+            A += cross;
+            Cx += (vertices[i].getX() + vertices[i + 1].getX()) * cross;
+            Cy += (vertices[i].getY() + vertices[i + 1].getY()) * cross;
         }
-        return new Point(cx / vertices.length, cy / vertices.length);
+
+        double cross = vertices[n - 1].getX() * vertices[0].getY() - vertices[0].getX() * vertices[n - 1].getY();
+        A += cross;
+        Cx += (vertices[n - 1].getX() + vertices[0].getX()) * cross;
+        Cy += (vertices[n - 1].getY() + vertices[0].getY()) * cross;
+
+        A *= 0.5;
+        Cx /= (6 * A);
+        Cy /= (6 * A);
+
+        return new Point(Cx, Cy);
     }
 
     /**

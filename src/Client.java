@@ -1,20 +1,12 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
+import java.util.Arrays;
 
 /**
  * A client to manage the user input and output.
  *
- * @author Leonardo Albudane
- * @version 10.0
- * @inv Point 0 ≤ θ ≤ 90 (first quadrant)
- * @inv Circle r > 0∏
- * @inv Circle P in the first quadrant
- * @inv Segment a != b
- * @inv Rectangle d1 = d2
- * @inv Triangle n = 3
- * @inv Polygon n > 2
- * @inv Polygon vertices are distinct
- * @inv Polygon vertices are not collinear
+ * @author Leonardo Albudane &amp; Mariana Afonso
+ * @version 11.0
  */
 public class Client {
     /**
@@ -44,11 +36,33 @@ public class Client {
             } else {
                 form = new Polygon(Utils.parsePoints(shape));
             }
-            ITransform transform = new Transform(p, layer, angle, scale, form);
+            ITransform transform = new Transform(p, layer, angle, scale);
             ICollider collider = new Collider(transform, form);
             g = new GameObject(s, transform, collider);
+            String s2;
+            while ((s2 = input.readLine()) != null && !s2.isEmpty()) {
+                String[] aos2 = s2.trim().split(" ");
+                switch (aos2[0]) {
+                    case "move" -> {
+                        double dx = Double.parseDouble(aos2[1]);
+                        double dy = Double.parseDouble(aos2[2]);
+                        int dLayer = Integer.parseInt(aos2[3]);
+                        g.transform().move(new Point(dx, dy), dLayer);
+                    }
+                    case "rotate" -> {
+                        double dTheta = Double.parseDouble(aos2[1]);
+                        g.transform().rotate(dTheta);
+                    }
+                    case "scale" -> {
+                        double dScale = Double.parseDouble(aos2[1]);
+                        g.transform().scale(dScale);
+                    }
+                }
+            }
         }
         input.close();
+        assert g != null;
+        g.transform().applyAll(g.collider().getForm());
         System.out.println(g);
     }
 }

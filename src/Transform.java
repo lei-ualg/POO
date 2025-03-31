@@ -4,14 +4,29 @@ public class Transform implements ITransform {
     private double angle;
     private double scale;
 
-    public Transform(Point centroid, int layer, double angle, double scale, GeometricForm shape) {
+    public Transform(Point centroid, int layer, double angle, double scale) {
         this.centroid = centroid;
         this.layer = layer;
         this.angle = angle;
         this.scale = scale;
-        shape.setCentroid(centroid);
+    }
+
+    public void applyRotate(GeometricForm shape) {
         shape.rotate(angle);
+    }
+
+    public void applyScale(GeometricForm shape) {
         shape.scale(scale);
+    }
+
+    public void applyMove(GeometricForm shape) {
+        shape.setCentroid(centroid);
+    }
+
+    public void applyAll(GeometricForm shape) {
+        applyMove(shape);
+        applyRotate(shape);
+        applyScale(shape);
     }
 
     @Override
@@ -22,7 +37,7 @@ public class Transform implements ITransform {
     @Override
     public void move(Point dPos, int dLayer) {
         this.centroid.translate(dPos);
-        this.layer = dLayer;
+        this.layer += dLayer;
     }
 
     @Override
