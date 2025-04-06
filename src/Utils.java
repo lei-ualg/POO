@@ -55,8 +55,8 @@ public final class Utils {
         int n = points_string.length / 2;
         Point[] vertices = new Point[n];
         for (int i = 0, a = 0, b = 1; i < n; i++, a += 2, b += 2) {
-            int x = Integer.parseInt(points_string[a]);
-            int y = Integer.parseInt(points_string[b]);
+            double x = Double.parseDouble(points_string[a]);
+            double y = Double.parseDouble(points_string[b]);
             vertices[i] = new Point(x, y);
         }
         return vertices;

@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * A client to manage the user input and output.
@@ -17,52 +18,63 @@ public class Client {
      */
     public static void main(String[] args) throws Exception {
         BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        String s;
-        GameObject g = null;
-        while ((s = input.readLine()) != null) {
-            if (s.isEmpty())
-                break;
-            GeometricForm form;
-            String[] aos = input.readLine().split(" ");
-            double x = Double.parseDouble(aos[0]);
-            double y = Double.parseDouble(aos[1]);
-            Point p = new Point(x, y);
-            int layer = Integer.parseInt(aos[2]);
-            double angle = Double.parseDouble(aos[3]);
-            double scale = Double.parseDouble(aos[4]);
-            String shape = input.readLine();
-            if (shape.split(" ").length == 3) {
-                form  = new Circle(shape);
+        GameEngine engine = new GameEngine();
+
+        int f = Integer.parseInt(input.readLine());
+        int n = Integer.parseInt(input.readLine());
+
+        while (n-->0) {
+            String name = input.readLine();
+
+            // Transform
+            String[] transformData = input.readLine().split(" ");
+            double x = Double.parseDouble(transformData[0]);
+            double y = Double.parseDouble(transformData[1]);
+            int layer = Integer.parseInt(transformData[2]);
+            double angle = Double.parseDouble(transformData[3]);
+            double scale = Double.parseDouble(transformData[4]);
+            Transform transform = new Transform(new Point(x, y), layer, angle, scale);
+
+            // Collider
+            String[] colliderData = input.readLine().split(" ");
+            GeometricForm shape;
+            if (colliderData.length == 3) {
+                double cx = Double.parseDouble(colliderData[0]);
+                double cy = Double.parseDouble(colliderData[1]);
+                double r = Double.parseDouble(colliderData[2]);
+                shape = new Circle(r, new Point(cx, cy));
             } else {
-                form = new Polygon(Utils.parsePoints(shape));
+                shape = new Polygon(String.join(" ", colliderData));
             }
-            ITransform transform = new Transform(p, layer, angle, scale);
-            ICollider collider = new Collider(transform, form);
-            g = new GameObject(s, transform, collider);
-            String s2;
-            while ((s2 = input.readLine()) != null && !s2.isEmpty()) {
-                String[] aos2 = s2.trim().split(" ");
-                switch (aos2[0]) {
-                    case "move" -> {
-                        double dx = Double.parseDouble(aos2[1]);
-                        double dy = Double.parseDouble(aos2[2]);
-                        int dLayer = Integer.parseInt(aos2[3]);
-                        g.transform().move(new Point(dx, dy), dLayer);
-                    }
-                    case "rotate" -> {
-                        double dTheta = Double.parseDouble(aos2[1]);
-                        g.transform().rotate(dTheta);
-                    }
-                    case "scale" -> {
-                        double dScale = Double.parseDouble(aos2[1]);
-                        g.transform().scale(dScale);
-                    }
-                }
-            }
+
+            Collider collider = new Collider(transform, shape);
+
+            // GameObject
+            GameObject go = new GameObject(name, transform, collider);
+            engine.add(go);
+
+            // Movement
+            String[] movementData = input.readLine().split(" ");
+            double dx = Double.parseDouble(movementData[0]);
+            double dy = Double.parseDouble(movementData[1]);
+            int dLayer = Integer.parseInt(movementData[2]);
+            double dAngle = Double.parseDouble(movementData[3]);
+            double dScale = Double.parseDouble(movementData[4]);
+
+            engine.setMovement(go, dx, dy, dLayer, dAngle, dScale);
         }
+
+        while (f-->0) {
+            engine.frame();
+        }
+        for (GameObject go : engine.getObjects()) {
+            go.transform().applyAll(go.collider().getForm());
+        }
+
+        for (String collision : engine.detectCollision()) {
+            System.out.println(collision);
+        }
+
         input.close();
-        assert g != null;
-        g.transform().applyAll(g.collider().getForm());
-        System.out.println(g);
     }
 }

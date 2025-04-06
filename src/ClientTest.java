@@ -8,11 +8,17 @@ public class ClientTest {
     @Test
     public void testClient() throws Exception {
         String input = """
-                Monster
-                3 6 0 90 1
-                0 0 0 2 2 2 2 0
-                move 1 1 0
-                rotate -90
+                3
+                2
+                fastBall
+                1 4 0 0 1
+                1 1 1
+                3 0 0 0 0
+                rotorBat
+                8.5 2.5 0 0 1
+                8 1 8 4 9 4 9 1
+                0 0 0 45 0
+                
                 
                 """;    // Input to be provided to System.in
         ByteArrayInputStream inputStream = new ByteArrayInputStream(input.getBytes());
@@ -34,9 +40,8 @@ public class ClientTest {
 
             // Assert output
             String expectedOutput = """
-                    Monster
-                    (4.00,7.00) 0 0.00 1.00
-                    (3.00,6.00) (3.00,8.00) (5.00,8.00) (5.00,6.00)
+                    fastBall rotorBat
+                    rotorBat fastBall
                     """; // Expected output
             assertEquals(expectedOutput, outputStream.toString());
 

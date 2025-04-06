@@ -21,25 +21,7 @@ public class Polygon extends GeometricForm {
      * @param points_string The vertices of the polygon in string format
      */
     public Polygon(String points_string) {
-        String[] poly = points_string.split(" ", 2);
-        int n = Integer.parseInt(poly[0]);
-        Point[] points = Utils.parsePoints(poly[1]);
-        if (n < 3) throw new IllegalArgumentException("Poligono:vi");
-        Point[] vertices = new Point[points.length];
-        Segment[] sides = new Segment[points.length];
-        for (int i = 0; i < n; i++) {
-            Point p = points[i];
-            Point q = points[(i + 1) % points.length];
-            Point r = points[(i + 2) % points.length];
-            vertices[i] = p;
-            Segment seg = new Segment(p, q);
-            if (new Line(p, q).has(r)) throw new IllegalArgumentException("Poligono:vi"); // colinearity
-            sides[i] = seg;
-            for (int j = 0; j < i; j++) {
-                if (seg.intersects(sides[j])) throw new IllegalArgumentException("Poligono:vi");
-            }
-        }
-        this.vertices = vertices;
+        this(Utils.parsePoints(points_string));
     }
 
     /**

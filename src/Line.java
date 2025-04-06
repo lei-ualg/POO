@@ -54,7 +54,7 @@ public class Line {
      * @return true if the point satisfies the equation of the line, false otherwise
      */
     public boolean has(Point p) {
-        return at(p) == 0;
+        return Utils.eq(at(p), 0);
     }
 
     /**
@@ -65,7 +65,7 @@ public class Line {
      * @return true if the points are in different sides of the line, false otherwise
      */
     public boolean opposedSides(Point p1, Point p2) {
-        return at(p1) * at(p2) < 0;
+        return Utils.gt(0, (at(p1) * at(p2)));
     }
 
     @Override

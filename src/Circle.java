@@ -67,7 +67,6 @@ public class Circle extends GeometricForm {
      *
      * @param dx the x-coordinate translation
      * @param dy the y-coordinate translation
-     * @return the translated circle
      */
     @Override
     public void translate(double dx, double dy) {
@@ -110,9 +109,8 @@ public class Circle extends GeometricForm {
 
         double t = Math.clamp(AP_AB / AB_AB, 0, 1);
 
-        Point closest = new Point((int) (segment.getA().getX() + ABx * t), (int) (segment.getA().getY() + ABy * t));
-
-        return Utils.ge(this.c_radius, this.c_center.distance(closest));
+        Point closest = new Point(segment.getA().getX() + (ABx * t), segment.getA().getY() + (ABy * t));
+        return Utils.gt(this.c_radius, this.c_center.distance(closest));
     }
 
     /**
@@ -153,12 +151,13 @@ public class Circle extends GeometricForm {
      */
     @Override
     public Polygon getBoundingBox() {
-        return new Polygon(new Point((int) (this.c_center.getX() - this.c_radius), (int) (this.c_center.getY() + this.c_radius)),
-                new Point((int) (this.c_center.getX() + this.c_radius), (int) (this.c_center.getY() - this.c_radius)));
+        return new Polygon(new Point(this.c_center.getX() - this.c_radius, this.c_center.getY() + this.c_radius),
+                new Point(this.c_center.getX() + this.c_radius, this.c_center.getY() - this.c_radius));
     }
 
     /**
      * Returns the centroid of the circle.
+     *
      * @return the centroid of the circle
      */
     @Override
@@ -168,6 +167,7 @@ public class Circle extends GeometricForm {
 
     /**
      * Sets the centroid of the circle.
+     *
      * @param p the new centroid
      */
     @Override
@@ -178,6 +178,7 @@ public class Circle extends GeometricForm {
 
     /**
      * Scales the circle by a factor.
+     *
      * @param dScale the factor to scale the circle by
      */
     @Override
