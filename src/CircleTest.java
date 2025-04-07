@@ -99,15 +99,15 @@ public class CircleTest {
 
     @Test
     public void testIntersection() {
-        Circle c1 = new Circle(3, new Point(5.0, 45));
-        Circle c2 = new Circle(3, new Point(5.0, 45));
+        Circle c1 = new Circle(3, new Point(3.5, 3.5));
+        Circle c2 = new Circle(3, new Point(3.5, 3.5));
         assertTrue(c1.intersects(c2));
     }
 
     @Test
     public void testCollision() {
-        Circle c1 = new Circle(3, new Point(5.0, 45));
-        Circle c2 = new Circle(3, new Point(5.0, 50));
+        Circle c1 = new Circle(3, new Point(3.5, 3.5));
+        Circle c2 = new Circle(3, new Point(3.2, 3.8));
         assertTrue(c1.collides(c2));
     }
 }
