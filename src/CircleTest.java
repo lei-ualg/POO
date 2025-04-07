@@ -38,21 +38,21 @@ public class CircleTest {
 
     @Test
     public void checkIntersectionTrue() {
-        Circle c = new Circle(3, new Point(5.0, 45));
-        Segment s = new Segment(new Point(7.0, 71), new Point(7.0, 19));
+        Circle c = new Circle(3, new Point(3.5, 3.5));
+        Segment s = new Segment(new Point(2.3, 6.6), new Point(2.3, 6.6));
         assertTrue(c.intersects(s));
     }
 
     @Test
     public void checkIntersectionFalse() {
-        Circle c = new Circle(3, new Point(5.0, 45));
-        Segment s = new Segment(new Point(7.0, 71), new Point(5.0, 90));
+        Circle c = new Circle(3, new Point(3.5, 3.5));
+        Segment s = new Segment(new Point(2.3, 6.6), new Point(0, 5));
         assertFalse(c.intersects(s));
     }
 
     @Test
     public void checkPerimeter() {
-        Circle c = new Circle(3, new Point(5.0, 45));
+        Circle c = new Circle(3, new Point(3.5, 3.5));
         assertEquals(18.84955592153876, c.perimeter());
     }
 
