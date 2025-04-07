@@ -22,9 +22,9 @@ public class CircleTest {
 
     @Test
     public void testGetters() {
-        Circle c = new Circle(3, new Point(5.0, 45.0));
+        Circle c = new Circle(3, new Point(5.0, 5.0));
         assertEquals(3, c.getCircleRadius());
-        assertEquals(45, c.getCircleCenter().getY());
+        assertEquals(5, c.getCircleCenter().getY());
         assertEquals(5, c.getCircleCenter().getX());
         Circle c2 = new Circle(3, new Point(3, 4));
         assertEquals(3, c2.getCircleCenter().getX());
@@ -33,7 +33,7 @@ public class CircleTest {
 
     @Test
     public void testCheckInvariant() {
-        assertThrows(IllegalArgumentException.class, () -> new Circle(-1, new Point(5.0, 45.0)));
+        assertThrows(IllegalArgumentException.class, () -> new Circle(-1));
     }
 
     @Test

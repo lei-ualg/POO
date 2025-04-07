@@ -1,5 +1,5 @@
 /**
- * Circle class represents a circle in polar coordinates.
+ * Circle class represents a circle in cartesian coordinates.
  *
  * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 6.0
