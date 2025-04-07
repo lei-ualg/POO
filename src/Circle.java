@@ -127,6 +127,15 @@ public class Circle extends GeometricForm {
         return p.intersects(this);
     }
 
+    /**
+     * Checks if the circle intersects with another circle.
+     * Uses the following algorithm:
+     * 1. Calculate the distance between the centers of the circles
+     * 2. Check if this distance is less than or equal to the sum of the radii
+     *
+     * @param c The other circle to check intersection with
+     * @return True if the circles intersect, false otherwise
+     */
     @Override
     public boolean intersects(Circle c) {
         return !Utils.gt(this.c_center.distance(c.c_center), this.c_radius + c.c_radius);

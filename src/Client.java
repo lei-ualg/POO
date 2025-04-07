@@ -1,18 +1,16 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
-import java.util.Arrays;
-import java.util.List;
 
 /**
  * A client to manage the user input and output.
  *
  * @author Leonardo Albudane &amp; Mariana Afonso
- * @version 11.0
+ * @version 12.0
  */
 public class Client {
     /**
-     * Problem L:<br>
-     * Given a game object, print its information.
+     * Problem N:<br>
+     * Given the gameObjects and their movements, detect the collisions between them after the frames.
      *
      * @param args the command-line arguments
      */

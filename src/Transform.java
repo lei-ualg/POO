@@ -11,18 +11,34 @@ public class Transform implements ITransform {
         this.scale = scale;
     }
 
+    /**
+     * Apply only the rotation to the GeometricForm
+     * @param shape the GeometricForm to apply this ITransform to
+     */
     public void applyRotate(GeometricForm shape) {
         shape.rotate(angle);
     }
 
+    /**
+     * Apply only the scaling to the GeometricForm
+     * @param shape the GeometricForm to apply this ITransform to
+     */
     public void applyScale(GeometricForm shape) {
         shape.scale(scale);
     }
 
+    /**
+     * Apply only the movement to the GeometricForm
+     * @param shape the GeometricForm to apply this ITransform to
+     */
     public void applyMove(GeometricForm shape) {
         shape.setCentroid(centroid);
     }
 
+    /**
+     * Apply all transformations to the GeometricForm
+     * @param shape the GeometricForm to apply this ITransform to
+     */
     public void applyAll(GeometricForm shape) {
         applyMove(shape);
         applyRotate(shape);

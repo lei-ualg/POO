@@ -6,7 +6,7 @@ import java.util.LinkedHashSet;
  * Polygon class represents a polygon in the plane.
  *
  * @author Leonardo Albudane
- * @version 4.0
+ * @version 5.0
  * @inv n >= 3 - The polygon must have more than 3 vertices
  * @inv sideX !intersect sideY - The sides of the polygon cannot intersect
  * @inv 3 !colinear - there can't be more than 2 points in sequence in a line (colinearity)
@@ -49,6 +49,11 @@ public class Polygon extends GeometricForm {
         this.vertices = vertices;
     }
 
+    /**
+     * Constrcts a rectangle with only the top-left and bottom-right corners.
+     * @param topLeft the top-left point
+     * @param bottomRight the bottom-right point
+     */
     public Polygon(Point topLeft, Point bottomRight) {
         this(new Point[]{
                 topLeft,
@@ -89,6 +94,12 @@ public class Polygon extends GeometricForm {
         return false;
     }
 
+    /**
+     * Checks if this polygon intersects with a circle
+     *
+     * @param c The circle to check intersection with
+     * @return True if the polygon intersects with the circle, false otherwise
+     */
     @Override
     public boolean intersects(Circle c) {
         for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {

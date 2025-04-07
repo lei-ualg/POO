@@ -60,12 +60,12 @@ public interface ITransform {
     int layer();
 
     /**
-     * * @return the angle in degrees
+     * @return the angle in degrees
      */
     double angle();
 
     /**
-     * * @return the current scale factor
+     * @return the current scale factor
      */
     double scale();
 
