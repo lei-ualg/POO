@@ -8,6 +8,12 @@ public class Collider implements ICollider {
     private final ITransform transform;
     private final GeometricForm shape;
 
+    /**
+     * Constructs a Collider with a given transform and geometric shape
+     *
+     * @param transform The transform that determines the position, rotation, and scale of the collider
+     * @param shape The geometric shape used to detect collisions (Circle or Polygon)
+     */
     public Collider(ITransform transform, GeometricForm shape) {
         this.transform = transform;
         this.shape = shape;
