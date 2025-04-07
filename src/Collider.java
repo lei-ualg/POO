@@ -1,3 +1,4 @@
+
 public class Collider implements ICollider {
     private final ITransform transform;
     private final GeometricForm shape;
@@ -24,6 +25,11 @@ public class Collider implements ICollider {
         return this.shape.collides(o.getForm());
     }
 
+    /**
+     * Returns the string representation of the collider
+     *
+     * @return The string representation of the collider
+     */
     @Override
     public String toString() {
         return "%s".formatted(shape);
