@@ -1,4 +1,9 @@
-
+/**
+ * Collider class represents a geometric form used for collision detection
+ *
+ * @author Leonardo Albudane &amp; Mariana Afonso
+ * @version 3.0
+ */
 public class Collider implements ICollider {
     private final ITransform transform;
     private final GeometricForm shape;
