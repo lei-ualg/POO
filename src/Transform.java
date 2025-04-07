@@ -1,9 +1,24 @@
+/**
+ * Transform class handles the spatial attributes of a GameObject in 2D space
+ * It controls position, rotation, scaling, and layer placement
+ * 
+ * @author Leonardo Albudane &amp; Mariana Afonso
+ * @version 2.0
+ */
 public class Transform implements ITransform {
     private final Point centroid;
     private int layer;
     private double angle;
     private double scale;
 
+    /**
+     * Constructs a Transform with the given properties
+     *
+     * @param centroid the initial position (centroid) of the GameObject
+     * @param layer the layer this GameObject resides in
+     * @param angle the rotation angle in degrees (counter-clockwise from North)
+     * @param scale the scale factor
+     */
     public Transform(Point centroid, int layer, double angle, double scale) {
         this.centroid = centroid;
         this.layer = layer;
@@ -45,11 +60,20 @@ public class Transform implements ITransform {
         applyScale(shape);
     }
 
+    /**
+     * @return the current position (centroid) of the GameObject
+     */
     @Override
     public Point position() {
         return centroid;
     }
-
+    
+    /**
+     * Moves the Transform by a given delta point and changes its layer
+     *
+     * @param dPos the differential Point to translate the centroid
+     * @param dLayer the differential integer to adjust the layer
+     */
     @Override
     public void move(Point dPos, int dLayer) {
         this.centroid.translate(dPos);
