@@ -11,24 +11,35 @@ public class Collider implements ICollider {
     /**
      * Constructs a Collider with a given transform and geometric shape
      *
-     * @param transform The transform that determines the position, rotation, and scale of the collider
-     * @param shape The geometric shape used to detect collisions (Circle or Polygon)
+     * @param transform the transform that determines the position, rotation, and scale of the collider
+     * @param shape the geometric shape used to detect collisions (Circle or Polygon)
      */
     public Collider(ITransform transform, GeometricForm shape) {
         this.transform = transform;
         this.shape = shape;
     }
 
+    /**
+     * Returns the geometric form (shape) used for collision detection
+     *
+     * @return the shape of this collider
+     */
     @Override
     public GeometricForm getForm() {
         return this.shape;
     }
 
+    /**
+     * Returns the centroid of this collider
+     *
+     * @return the position of the transform as the centroid
+     */
     @Override
     public Point centroid() {
         return this.transform.position();
     }
 
+    
     @Override
     public boolean collidesWith(ICollider other) {
         if (!(other instanceof Collider o)) return false;
