@@ -1,7 +1,7 @@
 /**
  * A class to represent a line in the plane
  *
- * @author Leonardo Albudane
+ * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 1.1
  * @inv p1 != p2 - The points are different
  */

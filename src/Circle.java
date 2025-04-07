@@ -1,7 +1,7 @@
 /**
  * Circle class represents a circle in polar coordinates.
  *
- * @author Leonardo Albudane
+ * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 6.0
  * @inv r > 0
  */

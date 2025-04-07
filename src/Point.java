@@ -1,7 +1,7 @@
 /**
  * Point class represents a point in polar coordinates.
  *
- * @author Leonardo Albudane
+ * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 6.0
  */
 public class Point implements Comparable<Point> {
@@ -73,7 +73,6 @@ public class Point implements Comparable<Point> {
      *
      * @param dx the x-coordinate translation
      * @param dy the y-coordinate translation
-     * @return the translated point
      */
     public void translate(double dx, double dy) {
         this.x += dx;

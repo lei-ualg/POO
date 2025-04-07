@@ -2,8 +2,8 @@
  * Utility class for the project.
  * Epsilon is set to 1e-9.
  *
- * @author Leonardo Albudane
- * @version 2.1å
+ * @author Leonardo Albudane &amp; Mariana Afonso
+ * @version 2.1
  */
 public final class Utils {
     /**

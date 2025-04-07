@@ -5,7 +5,7 @@ import java.util.LinkedHashSet;
 /**
  * Polygon class represents a polygon in the plane.
  *
- * @author Leonardo Albudane
+ * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 5.0
  * @inv n >= 3 - The polygon must have more than 3 vertices
  * @inv sideX !intersect sideY - The sides of the polygon cannot intersect

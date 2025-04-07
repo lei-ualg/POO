@@ -1,7 +1,7 @@
 /**
  * Segment class represents a segment between two points.
  *
- * @author Leonardo Albudane
+ * @author Leonardo Albudane &amp; Mariana Afonso
  * @version 3.1
  * @inv a != b
  */
