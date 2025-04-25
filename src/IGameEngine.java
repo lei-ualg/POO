@@ -16,13 +16,36 @@ public interface IGameEngine {
 
   public List<IGameObject> getDisabled();
 
-  //Chamam onDestroy de IBehaviour
+  /**
+     * Detroy IGameObject go whether it is enabled or disabled
+     * pre: go != null
+     * pos: go.onDestroy()
+     */
   public void destroy(IGameObject go);
 
+  /**
+     * Destroy all IGameObjects
+     * pos: calls onDestroy() for each IGameObject
+     */
   public void destroyAll();
 
-  //onUpdate de behaviour
+  /**
+     * Generates a new frame:
+     * Get user input from UI
+     * updae all the enable GameObjects
+     * check collisions and send info to GameObjects
+     * update UI
+     * pos: UI.input() && 
+     *  calls Behaviour.onUpdate() for all enabled objects &&
+     *  Behaviour.checkCollisions() &&
+     *  UI.draw()
+     */
   public void run();
 
+  /**
+     * Check collisions for all the enabled objects
+     * pos: call Behaviour.onCollision(gol) for all enabled GameObjects
+     *      passing in the list of all objects that collided with each IGameObject
+     */
   public void checkCollisions();
 }
