@@ -14,7 +14,9 @@ public interface IBehaviour {
 
   void onDestroy();
 
+  //chamado pelo gameEngine para atualizar a posição, rotação e escala
   void onUpdate(double dT, IInputEvent ie);
 
+  //chamado pelo gameEgine para detetar colisões após atualizações
   void onCollision(List<IGameObject> gol);
 }
