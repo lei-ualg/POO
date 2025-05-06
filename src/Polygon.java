@@ -100,8 +100,7 @@ public class Polygon extends GeometricForm {
      * @param c The circle to check intersection with
      * @return True if the polygon intersects with the circle, false otherwise
      */
-    @Override
-    public boolean intersects(Circle c) {
+    public boolean intersects(CollCircle c) {
         for (int i = 0, j = vertices.length - 1; i < vertices.length; j = i++) {
             Segment s = new Segment(vertices[i], vertices[j]);
             if (c.intersects(s)) return true;

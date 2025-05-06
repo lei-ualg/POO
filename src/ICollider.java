@@ -10,10 +10,5 @@ public interface ICollider {
 
     boolean isColliding(CollPoly other);
 
-    bollean isColliding(CollCircle other);
-
-    /**
-     * @return the shape stored in the collider.
-     */
-    GeometricForm getForm();
+    boolean isColliding(CollCircle other);
 }

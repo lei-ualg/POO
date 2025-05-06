@@ -65,11 +65,12 @@ public final class Utils {
     /**
      * Calculates the bounding box that encompasses two rectangles.
      *
-     * @param r1 the first rectangle
-     * @param r2 the second rectangle
+     * @param r1        the first rectangle
+     * @param r2        the second rectangle
+     * @param transform
      * @return a new rectangle representing the smallest bounding box that contains both input rectangles
      */
-    public static Polygon sumBoundingBox(Polygon r1, Polygon r2) {
+    public static CollPoly sumBoundingBox(CollPoly r1, CollPoly r2, ITransform transform) {
         Point topLeft1 = r1.vertices[0];
         Point bottomRig1 = r1.vertices[2];
         Point topLeft2 = r2.vertices[0];
@@ -78,6 +79,6 @@ public final class Utils {
         double y1 = Math.max(topLeft1.getY(), topLeft2.getY());
         double x2 = Math.max(bottomRig1.getX(), bottomRig2.getX());
         double y2 = Math.min(bottomRig1.getY(), bottomRig2.getY());
-        return new Polygon(new Point(x1, y1), new Point(x2, y2));
+        return new CollPoly(new Point(x1, y1), new Point(x2, y2), transform);
     }
 }

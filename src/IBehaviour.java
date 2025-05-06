@@ -1,22 +1,24 @@
+import java.util.List;
+
 public interface IBehaviour {
 
-  public IGameObject gameObject();
+    public IGameObject gameObject();
 
-  public void gameObject(IGameObject go);
+    public void gameObject(IGameObject go);
 
-  // é chaamado quando o gameObject é adicionado ao jogo
-  void onInit();
+    // é chaamado quando o gameObject é adicionado ao jogo
+    void onInit();
 
-  //
-  void onEnabled();
+    //
+    void onEnabled();
 
-  void onDisabled();
+    void onDisabled();
 
-  void onDestroy();
+    void onDestroy();
 
-  //chamado pelo gameEngine para atualizar a posição, rotação e escala
-  void onUpdate(double dT, IInputEvent ie);
+    //chamado pelo gameEngine para atualizar a posição, rotação e escala
+    void onUpdate(double dT, IInputEvent ie);
 
-  //chamado pelo gameEgine para detetar colisões após atualizações
-  void onCollision(List<IGameObject> gol);
+    //chamado pelo gameEgine para detetar colisões após atualizações
+    void onCollision(List<IGameObject> gol);
 }
