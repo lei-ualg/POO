@@ -73,32 +73,33 @@ public class GameEngine {
      * @return a list of strings representing the collisions
      */
     public List<String> detectCollision() {
-            Map<GameObject, List<String>> collisions = new LinkedHashMap<>();
+        Map<GameObject, List<String>> collisions = new LinkedHashMap<>();
 
-            for (GameObject a : gObjects) {
-                collisions.put(a, new ArrayList<>());
-            }
-
-            for (int i = 0; i < gObjects.size(); i++) {
-                GameObject a = gObjects.get(i);
-                for (int j = i + 1; j < gObjects.size(); j++) {
-                    GameObject b = gObjects.get(j);
-                    if (a.collider().collidesWith(b.collider())) {
-                        collisions.get(a).add(b.name());
-                        collisions.get(b).add(a.name());
-                    }
-                }
-            }
-
-            List<String> result = new ArrayList<>();
-            for (Map.Entry<GameObject, List<String>> entry : collisions.entrySet()) {
-                List<String> colliders = entry.getValue();
-                if (!colliders.isEmpty()) {
-                    result.add(entry.getKey().name() + " " + String.join(" ", colliders));
-                }
-            }
-
-            return result;
+        for (GameObject a : gObjects) {
+            collisions.put(a, new ArrayList<>());
         }
+
+        for (int i = 0; i < gObjects.size(); i++) {
+            GameObject a = gObjects.get(i);
+            for (int j = i + 1; j < gObjects.size(); j++) {
+                GameObject b = gObjects.get(j);
+
+                //alteração
+                if (a.transform().layer() == b.transform().layer() && a.collider().isCollision(b.collider())) {
+                    collisions.get(a).add(b.name());
+                    collisions.get(b).add(a.name());
+                }
+            }
+        }
+
+        List<String> result = new ArrayList<>();
+        for (Map.Entry<GameObject, List<String>> entry : collisions.entrySet()) {
+            List<String> colliders = entry.getValue();
+            if (!colliders.isEmpty()) {
+                    result.add(entry.getKey().name() + " " + String.join(" ", colliders));
+            }
+        }
+
+    return result;
 }
 
