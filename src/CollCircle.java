@@ -136,4 +136,12 @@ public class CollCircle implements ICollider {
         }
         return result;
     }
+
+    @Override
+    public String toString() {
+        return "CollCircle{" +
+                "c_radius=" + c_radius +
+                ", c_center=" + c_center +
+                '}';
+    }
 }

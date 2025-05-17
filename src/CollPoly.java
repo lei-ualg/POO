@@ -263,4 +263,13 @@ public class CollPoly implements ICollider {
         Arrays.sort(sorted);
         return Arrays.hashCode(sorted);
     }
+
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        for (Point p : vertices) {
+            sb.append(p.toString()).append(" ");
+        }
+        return sb.toString();
+    }
 }

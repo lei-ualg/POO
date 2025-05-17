@@ -6,11 +6,19 @@
  * @version 2.0
  */
 public class Transform implements ITransform {
-    private Point centroid;
+    private final Point centroid;
     private double angle;
     private double scale;
     private int layer;
     ICollider collider;
+
+    Transform(Point centroid, double angle, double scale, int layer, ICollider collider) {
+        this.angle = angle;
+        this.scale = scale;
+        this.layer = layer;
+        this.centroid = centroid;
+        this.collider = collider;
+    }
 
     @Override
     public void move(Point dPos, int dlayer) {
