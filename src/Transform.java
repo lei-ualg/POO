@@ -30,6 +30,9 @@ public class Transform implements ITransform {
     public void rotate(double dTheta) {
         this.angle += dTheta;
         this.angle = this.angle % 360;
+        if (this.angle < 0) {
+            this.angle += 360;
+        }
     }
 
     @Override

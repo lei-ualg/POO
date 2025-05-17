@@ -268,8 +268,9 @@ public class CollPoly implements ICollider {
     public String toString() {
         StringBuilder sb = new StringBuilder();
         for (Point p : vertices) {
-            sb.append(p.toString()).append(" ");
+            sb.append(p.toString()).append(", ");
         }
+        sb.delete(sb.length() - 2, sb.length());
         return sb.toString();
     }
 }

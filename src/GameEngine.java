@@ -18,7 +18,7 @@ public class GameEngine implements IGameEngine {
 
     @Override
     public void addDisabled(IGameObject go) {
-        disabledGo.remove(go);
+        disabledGo.add(go);  // Fixed: was removing instead of adding
     }
 
     @Override
@@ -78,6 +78,13 @@ public class GameEngine implements IGameEngine {
 
     @Override
     public void run() {
+        // Update all enabled game objects
+        for (IGameObject go : enabledGo) {
+            go.collider().onUpdate();
+        }
+        
+        // Check for collisions between game objects
+        checkCollisions();
     }
 
     @Override

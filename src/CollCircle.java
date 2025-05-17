@@ -139,9 +139,6 @@ public class CollCircle implements ICollider {
 
     @Override
     public String toString() {
-        return "CollCircle{" +
-                "c_radius=" + c_radius +
-                ", c_center=" + c_center +
-                '}';
+        return "Circle(%s, %s)".formatted(c_center.toString(), c_radius);
     }
 }
